@@ -5,7 +5,7 @@ import { MovieView } from "../MovieView/movie-view";
 export const MainView = () => {
   const [movies, setMovies] = useState([
     {
-      _id: { $oid: "64397f83d7e99a0f36eff73e" },
+      id: 1,
       Title: "The Dark Knight ",
       Description:
         "The Batman, police lieutenant James Gordon, and district attorney Harvey Dent, who form an alliance to dismantle organized crime in Gotham City.",
@@ -24,7 +24,7 @@ export const MainView = () => {
       year: "2008",
     },
     {
-      _id: { $oid: "643afde4d7e99a0f36eff744" },
+       id: 2,
       Title: "Avengers: Infinity War",
       Description:
         "The Avengers and the Guardians of the Galaxy attempt to prevent Thanos from collecting the six all-powerful Infinity Stones as part of his quest to kill half of all life in the universe.",
@@ -43,7 +43,7 @@ export const MainView = () => {
       year: "2018",
     },
     {
-      _id: { $oid: "643afe34d7e99a0f36eff745" },
+      id: 3,
       Title: "Avengers: End Game ",
       Description:
         "The surviving members of the Avengers and their allies attempt to reverse Thanos actions in Infinity War.",
