@@ -27160,20 +27160,20 @@ const MainView = ()=>{
         {
             id: 1,
             Title: "The Dark Knight ",
-            Director: "Christopher Nolan",
-            image: "https://www.imdb.com/title/tt0468569/mediaviewer/rm4023877632/?ref_=tt_ov_i"
+            image: "https://www.imdb.com/title/tt0468569/mediaviewer/rm4023877632/?ref_=tt_ov_i",
+            Director: "Christopher Nolan"
         },
         {
             id: 2,
             Title: "Avengers: Infinity War",
-            Director: "Anthony Russo, Joe Russo",
-            image: "https://www.imdb.com/title/tt4154756/mediaviewer/rm4044245504/?ref_=tt_ov_i"
+            image: "https://www.imdb.com/title/tt4154756/mediaviewer/rm4044245504/?ref_=tt_ov_i",
+            Director: "Anthony Russo, Joe Russo"
         },
         {
             id: 3,
             Title: "Avengers: End Game ",
-            Director: "Anthony Russo, Joe Russo",
-            image: "https://www.imdb.com/title/tt4154796/mediaviewer/rm2775147008/?ref_=tt_ov_i"
+            image: "https://www.imdb.com/title/tt4154796/mediaviewer/rm2775147008/?ref_=tt_ov_i",
+            Director: "Anthony Russo, Joe Russo"
         }
     ]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
@@ -27182,14 +27182,14 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/MainView/main-view.jsx",
-        lineNumber: 35,
+        lineNumber: 34,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: " The list is empty! "
     }, void 0, false, {
         fileName: "src/components/MainView/main-view.jsx",
-        lineNumber: 43,
+        lineNumber: 42,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27200,16 +27200,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/MainView/main-view.jsx",
-                lineNumber: 49,
+                lineNumber: 48,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/MainView/main-view.jsx",
-        lineNumber: 47,
+        lineNumber: 46,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "9fVjy1TJOspvfwDbFpCqfRVGQDg=");
+_s(MainView, "vaz9ZuFjjsmdpjEYQaHmijiwqK8=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
