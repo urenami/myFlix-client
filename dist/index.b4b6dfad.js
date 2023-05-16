@@ -27156,43 +27156,21 @@ var _movieView = require("../MovieView/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            Title: "The Dark Knight ",
-            Description: "The Batman, police lieutenant James Gordon, and district attorney Harvey Dent, who form an alliance to dismantle organized crime in Gotham City",
-            image: "https://www.imdb.com/title/tt0468569/mediaviewer/rm4023877632/?ref_=tt_ov_i",
-            Director: "Christopher Nolan"
-        },
-        {
-            id: 2,
-            Title: "Avengers: Infinity War",
-            Description: "The Avengers and the Guardians of the Galaxy attempt to prevent Thanos from collecting the six all-powerful Infinity Stones as part of his quest to kill half of all life in the universe.",
-            image: "https://www.imdb.com/title/tt4154756/mediaviewer/rm4044245504/?ref_=tt_ov_i",
-            Director: "Anthony Russo, Joe Russo"
-        },
-        {
-            id: 3,
-            Title: "Avengers: End Game ",
-            Description: "The surviving members of the Avengers and their allies attempt to reverse Thanos actions in Infinity War.",
-            image: "https://www.imdb.com/title/tt4154796/mediaviewer/rm2775147008/?ref_=tt_ov_i",
-            Director: "Anthony Russo, Joe Russo"
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/MainView/main-view.jsx",
-        lineNumber: 40,
+        lineNumber: 13,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: " The list is empty! "
     }, void 0, false, {
         fileName: "src/components/MainView/main-view.jsx",
-        lineNumber: 48,
+        lineNumber: 21,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27203,16 +27181,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/MainView/main-view.jsx",
-                lineNumber: 54,
+                lineNumber: 27,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/MainView/main-view.jsx",
-        lineNumber: 52,
+        lineNumber: 25,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "cEZJiHq2Ee5yJdMyOAXOI3y6XIg=");
+_s(MainView, "jzuc4/Y81KLA8pUTcmWNL/aPH2I=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
