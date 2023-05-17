@@ -27159,7 +27159,7 @@ const MainView = ()=>{
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
-        fetch("https://my-flixdb-56034.herokuapp.com/").then((response)=>response.json()).then((data)=>{
+        fetch("https://my-flixdb-56034.herokuapp.com").then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.docs.map((doc)=>{
                 return {
                     id: doc.key,
