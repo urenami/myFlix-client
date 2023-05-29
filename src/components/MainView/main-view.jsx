@@ -9,24 +9,23 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch("https://my-flixdb-56034.herokuapp.com")
+    fetch("https://my-flixdb-56034.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi= data.map((movie) => {
+        console.log(data);
+        const moviesFromApi = data.map((doc) => {
           return {
-            _id: movie._id,
-            Title: movie.Title,
-            Description: movie.Description,
-            Release_date: movie.Release_date,
-            Genre: movie.Genre,
-            Director: movie.Director,
-            imageURL: movie.imageURL,
-            Actors: movie.Actors
-          }
-        }) 
+            id: doc._id,
+            Title: doc.Title,
+            Director: doc.Director.Name,
+            Description: doc.Description,
+          };
+        });
 
         setMovies(moviesFromApi);
-        console.log(moviesFromApi)
+      })
+      .catch((error) => {
+        console.log("Error fetching movies:", error);
       });
   }, []);
 
@@ -37,10 +36,6 @@ export const MainView = () => {
         onBackClick={() => setSelectedMovie(null)}
       />
     );
-  }
-
-  if (movies.length === 0) {
-    return <div> The list is empty! </div>;
   }
 
   return (
