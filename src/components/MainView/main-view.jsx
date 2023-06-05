@@ -8,33 +8,29 @@ import { SignupView } from "../signup-view/signup-view";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(storedToken? storedToken : null);
+  const [token, setToken] = useState(storedToken? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [token, setToken] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    if (!token && !(storedUser && storedToken)) {
-      return;
-    }
-
+    if (!token) return;
+    
     fetch("https://my-flixdb-56034.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        const moviesFromApi = data.map((movie) => {
+        const moviesFromApi = data.map((movies) => {
           return {
-            id: movie._id,
-            Title: movie.Title,
-            Director: movie.Director.Name,
-            Description: movie.Description,
+            id: movies._id,
+            Title: movies.Title,
+            Director: movies.Director.Name,
+            Description: movies.Description
           };
         });
-
         setMovies(moviesFromApi);
-      });
+      })
   }, [token]);
 
   if (!user) {
@@ -57,7 +53,6 @@ export const MainView = () => {
           Register:
           <br />
           <br />
-          
           <SignupView />
         </div>
       </div>
