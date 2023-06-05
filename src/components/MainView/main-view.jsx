@@ -1,54 +1,105 @@
 import { useState, useEffect } from "react";
+
 import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
-import { useEffect } from "react";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([]);
-
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    fetch("https://my-flixdb-56034.herokuapp.com/movies")
-      .then((response) => response.json())
+    if (!token && !(storedUser && storedToken)) {
+      return;
+    }
+
+    fetch("https://my-flixdb-56034.herokuapp.com/movies", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        const moviesFromApi = data.map((doc) => {
+        const moviesFromApi = data.map((movie) => {
           return {
-            id: doc._id,
-            Title: doc.Title,
-            Director: doc.Director.Name,
-            Description: doc.Description,
+            id: movie._id,
+            Title: movie.Title,
+            Director: movie.Director.Name,
+            Description: movie.Description,
           };
         });
 
         setMovies(moviesFromApi);
-      })
-      .catch((error) => {
-        console.log("Error fetching movies:", error);
       });
-  }, []);
+  }, [token]);
+
+  if (!user) {
+    return (
+      <div>
+        <div>
+          Login:
+          <br />
+          <br />
+          <LoginView
+            onLoggedIn={(user, token) => {
+              setUser(user);
+              setToken(token);
+            }}
+          />
+        </div>
+        <br />
+        or
+        <div>
+          Register:
+          <br />
+          <br />
+          
+          <SignupView />
+        </div>
+      </div>
+    );
+  }
 
   if (selectedMovie) {
     return (
       <MovieView
-        movie={selectedMovie}
-        onBackClick={() => setSelectedMovie(null)}
+        movieData={selectedMovie}
+        onBackClick={() => {
+          setSelectedMovie(null);
+        }}
       />
     );
   }
-
+  if (movies.length === 0) {
+    return <div>The list is empty!</div>;
+  }
   return (
     <div>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
+      <div>
+        <button
+          onClick={() => {
+            setUser(null);
+            setToken(null);
           }}
-        />
-      ))}
+        >
+          Logout
+        </button>
+      </div>
+      <div>
+        {movies.map((movie) => (
+          <MovieCard
+            key={movie._id}
+            movieData={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 };
