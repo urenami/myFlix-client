@@ -1,30 +1,29 @@
-export const MovieView= ({ movieData, onBackClick }) => {
-  return(
+import PropTypes from "prop-types";
+import { Button } from "react-bootstrap";
+
+export const MovieView = ({ movies, onBackClick }) => {
+  return (
     <div>
-      <button onClick={onBackClick}>Back</button>
       <div>
-        <span>Title: </span>
-        <span>{movieData.Title}</span>
+        <img src={movies.imageUrl}  className="w-50 border" />
       </div>
       <div>
-        <span>Genre: </span>
-        <span>{movieData.Genre}</span>
+        <span>Title: </span>
+        <span>{movies.Title}</span>
       </div>
       <div>
         <span>Description: </span>
-        <span>{movieData.Description}</span>
+        <span>{movies.Description}</span>
       </div>
       <div>
         <span>Director: </span>
-        <span>{movieData.Director}</span>
+        <span>{movies.Director}</span>
       </div>
-      <div>
-        <span>Actors: </span>
-        <span>{movieData.Actors}</span>
-      </div>
-      <div>
-        <img src={movieData.imageURL} className="movie_image"/>
-      </div>
+      <Button
+        onClick={onBackClick}
+        className="back-button"
+        style={{ cursoe: "pointer" }}
+      >back</Button>
     </div>
-  )
-}
+  );
+};
