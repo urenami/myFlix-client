@@ -1,5 +1,6 @@
-import React from "react";
 import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -10,16 +11,17 @@ export const LoginView = ({ onLoggedIn }) => {
 
     const data = {
       Username: username,
-      Password: password
+      Password: password,
     };
 
     fetch("https://my-flixdb-56034.herokuapp.com/login", {
       method: "POST",
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
-    }).then((response) => response.json())
+    })
+      .then((response) => response.json())
       .then((data) => {
         console.log("Login response: ", data);
         if (data.user) {
@@ -30,34 +32,37 @@ export const LoginView = ({ onLoggedIn }) => {
           alert("No such user");
         }
       })
-      .catch((error) => {
+      .catch((e) => {
         alert("something went wrong");
       });
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
+    <Form onSubmit={handleSubmit} className="mt-2">
+      <Form.Group controlId="Username">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          minLength={6}
         />
-      </label>
-      <br/>
-      <label>
-        Password:
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="password">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          minLength={7}
         />
-      </label>
-      <br/>
-      <button type="submit">Submit</button>
-    </form>
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
-
