@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movies }) => {
   return (
-    <Link to={`/movies/${encodeURIComponent(movies.id)}`}>
+    <Link to={`/movies/${encodeURIComponent(movies._id)}`}>
       <Card ClassName="h-100" border="primary">
         <Card.Img variant="top" src={movies.imageUrl} ClassName="border" />
-        <Card.Body>
+        <Card.Body className="text-center">
           <Card.Title>{movies.Title}</Card.Title>
           <Card.Text>{movies.Director}</Card.Text>
         </Card.Body>

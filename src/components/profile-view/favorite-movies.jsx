@@ -1,4 +1,4 @@
-import { MovieCard } from "../movie-card/movie-card";
+import { MovieCard } from "../MovieCard/Movie-card";
 import { Row, Col } from "react-bootstrap";
 
 export const FavoriteMovies = ({ movies, user }) => {

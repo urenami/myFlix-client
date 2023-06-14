@@ -1,7 +1,8 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import {Button, Col, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { SimilarMovies } from "./similar-movies";
 
 export const MovieView = ({ movies, user, token, updateUser }) => {
   const { movieId } = useParams();
@@ -13,7 +14,7 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
   );
 
   useEffect(() => {
-    setAsFavorite(user.FavoriteMovies.includes(movie._id));
+    setAsFavorite(user.FavoriteMovies.includes(movies._id));
     window.scrollTo(0, 0);
   }, [movieId]);
 
@@ -104,6 +105,9 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
           </Button>
         )}
       </Col>
+      <Container>
+        <SimilarMovies movies={movies} movie={movie} />
+      </Container>
     </>
   );
 };
