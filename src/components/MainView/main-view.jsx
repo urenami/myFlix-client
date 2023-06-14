@@ -3,10 +3,10 @@ import { MovieCard } from "../MovieCard/Movie-card";
 import { MovieView } from "../MovieView/Movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import { ProfileView } from "../profile-view/profile-view";
+import { Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { NavigationBar } from '../navigation-bar/navigation-bar';
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -15,6 +15,11 @@ export const MainView = () => {
   const [token, setToken] = useState(storedUser ? storedUser : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const updateUser = (user) => {
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -39,20 +44,20 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-     <Row>
-          <Col>
-            <NavigationBar
-              user={user}
-              onLoggedOut={() => { 
-                setUser(null); 
-                setToken(null); 
-                localStorage.clear();
-                window.location.reload();
-                 }}
-            />
-          </Col>
-        </Row>
-      <Row className="justify-content-center">
+      <Row className="font-monospace">
+        <Col className="mb-4">
+          <NavigationBar
+            user={user}
+            onLoggedOut={() => {
+              setUser(null);
+              setToken(null);
+              localStorage.clear();
+              window.location.reload();
+            }}
+          />
+        </Col>
+      </Row>
+      <Row className="justify-content-md-center font-monospace">
         <Routes>
           <Route
             path="/signup"
@@ -61,7 +66,7 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col className='m-2'md={5}>
+                  <Col className="m-2" md={5}>
                     <SignupView />
                   </Col>
                 )}
@@ -75,7 +80,7 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col className='m-2'md={5}>
+                  <Col className="m-3" md={5}>
                     <LoginView
                       onLoggedIn={(user, token) => {
                         setUser(user);
@@ -97,7 +102,12 @@ export const MainView = () => {
                   <Col>The list is empty</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView
+                      movies={movies}
+                      user={user}
+                      token={token}
+                      updateUser={updateUser}
+                    />
                   </Col>
                 )}
               </>
@@ -114,14 +124,36 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col
-                        className="mb-4"
-                        key={movie._id}
-                        md={4}
-                      >
+                      <Col className="mb-4" key={movie._id} md={4}>
                         <MovieCard movies={movies} />
                       </Col>
                     ))}
+                  </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <>
+                    <Col>
+                      <ProfileView
+                        user={user}
+                        token={token}
+                        movies={movies}
+                        onLoggedOut={() => {
+                          setUser(null);
+                          setToken(null);
+                          localStorage.clear();
+                        }}
+                        updateUser={updateUser}
+                      />
+                    </Col>
                   </>
                 )}
               </>

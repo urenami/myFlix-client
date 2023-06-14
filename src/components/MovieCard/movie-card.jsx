@@ -1,25 +1,18 @@
-import React from 'react'
+import React from "react";
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movies }) => {
   return (
     <Link to={`/movies/${encodeURIComponent(movies.id)}`}>
-    <Card
-    ClassName='h-100'
-    border='primary'
-      >
-       <Card.Img 
-       variant="top" 
-       src={movies.imageUrl} 
-       ClassName='border'
-       />
-      <Card.Body>
-        <Card.Title>{movies.Title}</Card.Title>
-        <Card.Text>{movies.Director}</Card.Text>
-      </Card.Body>
-    </Card>
+      <Card ClassName="h-100" border="primary">
+        <Card.Img variant="top" src={movies.imageUrl} ClassName="border" />
+        <Card.Body>
+          <Card.Title>{movies.Title}</Card.Title>
+          <Card.Text>{movies.Director}</Card.Text>
+        </Card.Body>
+      </Card>
     </Link>
   );
 };
@@ -31,6 +24,5 @@ MovieCard.propTypes = {
     Description: PropTypes.string.isRequired,
     Director: PropTypes.object.isRequired,
     imageUrl: PropTypes.string.isRequired,
-
-  }).isRequired
+  }).isRequired,
 };

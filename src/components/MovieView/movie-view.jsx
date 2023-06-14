@@ -1,32 +1,109 @@
-import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
 
-export const MovieView = ({ movies, onBackClick }) => {
+export const MovieView = ({ movies, user, token, updateUser }) => {
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);
 
+  const [isFavoriteMovie, setAsFavorite] = useState(
+    user.FavoriteMovies.includes(movies._id)
+  );
+
+  useEffect(() => {
+    setAsFavorite(user.FavoriteMovies.includes(movie._id));
+    window.scrollTo(0, 0);
+  }, [movieId]);
+
+  const addFavorite = () => {
+    fetch(
+      `https://my-flixdb-56034.herokuapp.com//users/${user._id}/movies/${movieId}`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          alert("Failed");
+          return false;
+        }
+      })
+      .then((user) => {
+        if (user) {
+          alert("Successfully added to favorites");
+          setAsFavorite(true);
+          updateUser(user);
+        }
+      })
+      .catch((e) => {
+        alert(e);
+      });
+  };
+
+  const removeFavorite = () => {
+    fetch(
+      `https://my-flixdb-56034.herokuapp.com/users/${user._id}/${movieId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          alert("Failed");
+          return false;
+        }
+      })
+      .then((user) => {
+        if (user) {
+          alert(`"${movie.title}"successfully deleted from favorites`);
+          setAsFavorite(false);
+          updateUser(user);
+        }
+      })
+      .catch((e) => {
+        alert(e);
+      });
+  };
+
   return (
-    <div>
-      <div>
-        <img src={movies.imageUrl}  className="w-50 border" />
-      </div>
-      <div>
-        <span>Title: </span>
-        <span>{movies.Title}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{movies.Description}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movies.Director}</span>
-      </div>
-      <Link to={`/`}>
-          <Button>Back</Button>
+    <>
+      <Col className="mb-4">
+        <div>
+          <img src={movies.imageUrl} className="w-50 border" />
+        </div>
+        <div>
+          <span>Title: </span>
+          <span>{movies.Title}</span>
+        </div>
+        <div>
+          <span>Description: </span>
+          <span>{movies.Description}</span>
+        </div>
+        <div>
+          <span>Director: </span>
+          <span>{movies.Director}</span>
+        </div>
+        <Link to={`/`}>
+          <Button variant="primary">Back</Button>
         </Link>
-    </div>
+        {isFavoriteMovie ? (
+          <Button variant="danger" className="ms-2" onClick={removeFavorite}>
+            Remove from favorites
+          </Button>
+        ) : (
+          <Button variant="success" className="ms-2" onClick={addFavorite}>
+            Add to favorites
+          </Button>
+        )}
+      </Col>
+    </>
   );
 };
