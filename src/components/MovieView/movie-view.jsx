@@ -6,9 +6,7 @@ import { SimilarMovies } from "./similar-movies";
 
 export const MovieView = ({ movies, user, token, updateUser }) => {
   const { movieId } = useParams();
-
   const movie = movies.find((m) => m.id === movieId);
-
   const [isFavoriteMovie, setAsFavorite] = useState(
     user.FavoriteMovies.includes(movies._id)
   );
@@ -45,7 +43,6 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
         alert(e);
       });
   };
-
   const removeFavorite = () => {
     fetch(
       `https://my-flixdb-56034.herokuapp.com/users/${user._id}/${movieId}`,
@@ -64,7 +61,7 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
       })
       .then((user) => {
         if (user) {
-          alert(`"${movie.title}"successfully deleted from favorites`);
+          alert(`"${movies.Title}"successfully deleted from favorites`);
           setAsFavorite(false);
           updateUser(user);
         }
@@ -73,7 +70,6 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
         alert(e);
       });
   };
-
   return (
     <>
       <Col className="mb-4">

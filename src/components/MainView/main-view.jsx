@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { MovieCard } from "../MovieCard/Movie-card";
-import { MovieView } from "../MovieView/Movie-view";
+import { MovieCard } from "../MovieCard/movie-card";
+import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
@@ -12,9 +12,9 @@ export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  
 
   const updateUser = (user) => {
     setUser(user);
@@ -66,7 +66,7 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col className="m-2" md={5}>
+                  <Col className="m-3" md={5}>
                     <SignupView />
                   </Col>
                 )}
@@ -123,8 +123,8 @@ export const MainView = () => {
                   <Col>The list is empty</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie._id} md={4}>
+                    {movies.map((movies) => (
+                      <Col className="mb-4" key={movies._id} md={4}>
                         <MovieCard movies={movies} />
                       </Col>
                     ))}

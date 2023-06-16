@@ -38,12 +38,13 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Form className='border border-3 rounded px-5 py-4' onSubmit={handleSubmit}>
-      <h2 className='text-center' >Sign in</h2>
+    <Form className="border border-3 rounded px-5 py-4" onSubmit={handleSubmit}>
+      <h2 className="text-center">Sign in</h2>
       <Form.Group controlId="Username">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
+          autoComplete="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -52,16 +53,17 @@ export const LoginView = ({ onLoggedIn }) => {
       </Form.Group>
 
       <Form.Group controlId="password">
-        <Form.Label className='mt-2'>Password:</Form.Label>
+        <Form.Label className="mt-2">Password:</Form.Label>
         <Form.Control
           type="password"
+          autoComplete="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength={7}
         />
       </Form.Group>
-      <Button className='mt-3 w-100'variant="primary" type="submit">
+      <Button className="mt-3 w-100" variant="primary" type="submit">
         Submit
       </Button>
     </Form>

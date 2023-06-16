@@ -1,9 +1,9 @@
 import { UserInfo } from "./user-info";
 import { Col, Container } from "react-bootstrap";
 import { UserEdit } from "./user-edit";
-import { MovieCard } from "../MovieCard/Movie-card";
+import { MovieCard } from "../MovieCard/movie-card";
 import { Link } from "react-router-dom";
-import { favoriteMovies } from "./favorite-movies";
+import { FavoriteMovies } from "./favorite-movies";
 
 export const ProfileView = ({
   user,
@@ -12,8 +12,8 @@ export const ProfileView = ({
   updateUser,
   onLoggedOut,
 }) => {
-  let favoriteMovies = movies.filter((movie) =>
-    user.FavoriteMovies.includes(movie.id)
+  let FavoriteMovies = movies.filter((movies) =>
+    user.FavoriteMovies.includes(movies._id)
   );
 
   const deleteAccount = () => {
@@ -60,9 +60,9 @@ export const ProfileView = ({
       <Col md={12}>
         <h3 className="mt-3 mb-3 text-light">Your favorite movies:</h3>
       </Col>
-      {favoriteMovies.map((movie) => (
-        <Col className="mb-4" key={movie.id} xl={2} lg={3} md={4} xs={6}>
-          <MovieCard movie={movie} />
+      {FavoriteMovies.map((movies) => (
+        <Col className="mb-4" key={movies.id} xl={2} lg={3} md={4} xs={6}>
+          <MovieCard movie={movies} />
         </Col>
       ))}
     </>

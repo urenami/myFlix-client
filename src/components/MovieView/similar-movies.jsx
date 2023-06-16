@@ -1,10 +1,11 @@
-import { MovieCard } from "../MovieCard/Movie-card";
+import { MovieCard } from "../MovieCard/movie-card";
 import { Row, Col } from "react-bootstrap";
 
 export const SimilarMovies = ({ movies, movie }) => {
   let similarMovies = movies.filter(
     (m) => movies.genre === movies.genre && m.id !== movies._id
   );
+
   return (
     <>
       <Row className="bg-light p-3 rounded-3 mb-5 w-100">
