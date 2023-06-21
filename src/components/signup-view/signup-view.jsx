@@ -35,12 +35,13 @@ export const SignupView = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-
+    <Form className='border border-3 rounded px-5 py-4' onSubmit={handleSubmit}>
+      <h2 className='text-center'>Sign up</h2>
       <Form.Group controlId='username'>
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type='text'
+          autoComplete="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}required
           minLength={3}
@@ -51,6 +52,7 @@ export const SignupView = () => {
         <Form.Label>Password:</Form.Label>
         <Form.Control
           type='password'
+          autoComplete="new-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}required
         />
@@ -73,7 +75,7 @@ export const SignupView = () => {
         />
         </Form.Group>
 
-      <Button variant='primary' type='submit'>Sign Up</Button>
+      <Button className='mt-3 w-100' variant='primary' type='submit'>Sign Up</Button>
     </Form>
   );
 };
