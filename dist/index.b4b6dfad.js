@@ -28527,7 +28527,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../profile-view/profile-view":"2vVqf","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM","@parcel/transformer-js/src/esmodule-helpers.js":"4CQBl","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kFfOp","../MovieCard/movie-card":"dg3Ls","../MovieView/movie-view":"9Uua1"}],"9YtA0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../profile-view/profile-view":"2vVqf","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM","@parcel/transformer-js/src/esmodule-helpers.js":"4CQBl","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kFfOp","../MovieView/movie-view":"9Uua1","../MovieCard/movie-card":"dg3Ls"}],"9YtA0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$9fee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -47061,7 +47061,7 @@ const FavoriteMovies = ({ movies , user  })=>{
                             movie: movie
                         }, void 0, false, {
                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                            lineNumber: 19,
+                            lineNumber: 15,
                             columnNumber: 13
                         }, undefined)
                     }, movie.id, false, {
@@ -47086,7 +47086,7 @@ $RefreshReg$(_c, "FavoriteMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../MovieCard/movie-card":"dg3Ls","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"4CQBl","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kFfOp"}],"dg3Ls":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"4CQBl","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kFfOp","../MovieCard/movie-card":"dg3Ls"}],"dg3Ls":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2506 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -47595,6 +47595,6 @@ $RefreshReg$(_c, "SimilarMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../MovieCard/movie-card":"dg3Ls","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"4CQBl","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kFfOp"}]},["eBQoH","9mV9i","d8Dch"], "d8Dch", "parcelRequiree398")
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"4CQBl","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"kFfOp","../MovieCard/movie-card":"dg3Ls"}]},["eBQoH","9mV9i","d8Dch"], "d8Dch", "parcelRequiree398")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

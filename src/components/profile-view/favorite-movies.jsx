@@ -11,11 +11,7 @@ export const FavoriteMovies = ({ movies, user }) => {
       <h3 className="mt-4 pt-4 mb-3 text-primary">Your favorite movies:</h3>
       <Row>
         {FavoriteMovies.map((movie) => (
-          <Col
-            className="mb-4 "
-            key={movie.id}
-            md={6}
-          >
+          <Col className="mb-4 " key={movie.id} md={6}>
             <MovieCard movie={movie} />
           </Col>
         ))}
