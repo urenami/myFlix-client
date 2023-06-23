@@ -2,8 +2,8 @@ import { MovieCard } from "../MovieCard/movie-card";
 import { Row, Col } from "react-bootstrap";
 
 export const FavoriteMovies = ({ movies, user }) => {
-  let FavoriteMovies = movies.filter((movie) =>
-    user.FavoriteMovies.includes(movie.id)
+  let FavoriteMovies = movies.filter((movies) =>
+    user.FavoriteMovies.includes(movies.id)
   );
 
   return (
