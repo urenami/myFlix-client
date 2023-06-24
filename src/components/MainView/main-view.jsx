@@ -7,14 +7,16 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { setMovies } from "../../redux/reducers/movies";
+import { useDispatch, useSelector } from "react-redux";
 
 export const MainView = () => {
+  const dispatch = useDispatch();
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
-  
+  const movies = useSelector((state) => state.movies.list);
 
   const updateUser = (user) => {
     setUser(user);
@@ -38,7 +40,7 @@ export const MainView = () => {
             imageUrl: movies.imageUrl,
           };
         });
-        setMovies(moviesFromApi);
+        dispatch(setMovies(moviesFromApi));
       });
   }, [token]);
 
@@ -103,7 +105,6 @@ export const MainView = () => {
                 ) : (
                   <Col md={8}>
                     <MovieView
-                      movies={movies}
                       user={user}
                       token={token}
                       updateUser={updateUser}
