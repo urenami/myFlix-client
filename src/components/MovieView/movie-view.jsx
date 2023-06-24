@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import {Button, Col, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { SimilarMovies } from "./similar-movies";
-import { useSelector } from 'react-redux';
 
 export const MovieView = ({ movies, user, token, updateUser }) => {
-  const movies = useSelector((state) => state.movies.list);
   const { movieId } = useParams();
   const movie = movies.find((m) => m.id === movieId);
   const [isFavoriteMovie, setAsFavorite] = useState(
@@ -104,7 +102,7 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
         )}
       </Col>
       <Container>
-        <SimilarMovies movie={movie} />
+        <SimilarMovies movies={movies} movie={movie} />
       </Container>
     </>
   );
