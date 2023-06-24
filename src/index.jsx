@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { MainView } from "./components/MainView/main-view";
 import Container from "react-bootstrap/Container";
-import { store } from "./redux/store";
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import "./index.scss";
