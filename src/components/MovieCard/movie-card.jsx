@@ -11,8 +11,6 @@ export const MovieCard = ({ movies }) => {
         <Card.Img variant="top" src={movies.imageUrl} className="border" />
         <Card.Body className="text-center">
           <Card.Title>{movies.Title}</Card.Title>
-          <Card.Text>{movies.Director}</Card.Text>
-          <Card.Text>{movies.Description}</Card.Text>
           <Card.Text>{movies.Genre}</Card.Text>
         </Card.Body>
       </Card>
@@ -21,10 +19,14 @@ export const MovieCard = ({ movies }) => {
 };
 MovieCard.propTypes = {
   movies: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
-    Director: PropTypes.string.isRequired,
+    Director: PropTypes.PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
+    Genre: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
     imageUrl: PropTypes.string.isRequired,
   }).isRequired,
 };

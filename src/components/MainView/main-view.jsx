@@ -10,6 +10,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { setMovies } from '../../redux/reducers/movies';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../../redux/reducers/user';
+import { setMovies } from '../../redux/reducers/movies';
 
 export const MainView = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export const MainView = () => {
   const movies = useSelector((state) => state.movies.list);
 
   const updateUser = (user) => {
-    setUser(user);
+    dispatch(setUser(user));
     localStorage.setItem("user", JSON.stringify(user));
   };
 
@@ -41,6 +42,7 @@ export const MainView = () => {
             Director: movies.Director.Name,
             Description: movies.Description,
             imageUrl: movies.imageUrl,
+            Genre: movies.Genre
           };
         });
         dispatch(setMovies(moviesFromApi));

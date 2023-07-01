@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Col, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { SimilarMovies } from "./similar-movies";
+import { useSelector } from 'react-redux';
 
 export const MovieView = ({ updateUser }) => {
 
@@ -79,7 +80,7 @@ export const MovieView = ({ updateUser }) => {
     <>
       <Col className="mb-4">
         <div>
-        <img className='w-100 border-secondary mb-3' src={movie.imageUrl} />
+        <img className='w-100 border-secondary mb-3' src={movies.imageUrl} />
         </div>
         <div>
           <span>Title: </span>
@@ -87,7 +88,7 @@ export const MovieView = ({ updateUser }) => {
         </div>
         <div>
           <span className='fw-bold'>Genre: </span>
-          <span>{movie.Genre}</span>
+          <span>{movies.Genre}</span>
         </div>
         <div>
           <span>Description: </span>
@@ -111,7 +112,7 @@ export const MovieView = ({ updateUser }) => {
         )}
       </Col>
       <Container>
-        <SimilarMovies movies={movies} movie={movie} />
+        <SimilarMovies movie={movie} />
       </Container>
     </>
   );

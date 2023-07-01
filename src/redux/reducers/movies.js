@@ -12,8 +12,8 @@ const moviesSlice = createSlice({
     },
     setFilter: (state, action) => {
       state.filter = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { setMovies, setFilter } = moviesSlice.actions;
