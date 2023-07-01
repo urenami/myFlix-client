@@ -1,8 +1,7 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const NavigationBar = () => {
-  const user = useSelector((state) => state.user.user);
+export const NavigationBar = ({ user, onLoggedOut }) => {
     return (
       <Navbar bg="light" expand="lg">
         <Container>

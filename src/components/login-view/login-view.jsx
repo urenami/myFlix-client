@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-
-export const LoginView = () => {
-
-  const dispatch = useDispatch();
+export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,8 +27,7 @@ export const LoginView = () => {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          dispatch(setUser(data.user));
-          dispatch(setToken(data.token));
+          onLoggedIn(data.user, data.token);
         } else {
           alert("No such user");
         }
