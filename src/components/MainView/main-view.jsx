@@ -10,7 +10,6 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { setMovies } from "../../redux/reducers/movies";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
-import { setMovies } from "../../redux/reducers/movies";
 
 export const MainView = () => {
   const dispatch = useDispatch();
