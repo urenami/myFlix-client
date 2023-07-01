@@ -1,9 +1,9 @@
 import { MovieCard } from "../MovieCard/movie-card";
 import { Row, Col } from "react-bootstrap";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 export const SimilarMovies = ({ movies }) => {
-  const movies = useSelector((state) => state.movies.list);
+  
   let similarMovies = movies.filter(
     (m) => movies.Genre === movies.Genre && m.id !== movies._id
   );
