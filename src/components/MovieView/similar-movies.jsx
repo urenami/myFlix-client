@@ -1,11 +1,9 @@
 import { MovieCard } from "../MovieCard/movie-card";
 import { Row, Col } from "react-bootstrap";
-import { useSelector } from "react-redux";
 
-export const SimilarMovies = ({ movies }) => {
-  const movies = useSelector((state) => state.movies.list);
+export const SimilarMovies = ({ movies, movie }) => {
   let similarMovies = movies.filter(
-    (m) => movies.Genre === movies.Genre && m.id !== movies._id
+    (m) => movies.genre === movies.genre && m.id !== movies._id
   );
 
   return (
@@ -15,7 +13,7 @@ export const SimilarMovies = ({ movies }) => {
         {similarMovies.map((movie) => (
           <Col
             className="mb-4 mx-auto justify-content-center"
-            key={movies.id}
+            key={movies._id}
             xxl={4}
             xl={6}
             lg={12}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -7,26 +7,23 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { setMovies } from "../../redux/reducers/movies";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../redux/reducers/user";
 
 export const MainView = () => {
-  const dispatch = useDispatch();
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
-  const movies = useSelector((state) => state.movies.list);
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [movies, setMovies] = useState([]);
+  
 
   const updateUser = (user) => {
     setUser(user);
-    dispatch(setUser(user));
     localStorage.setItem("user", JSON.stringify(user));
   };
 
   useEffect(() => {
     if (!token) return;
+
     fetch("https://my-flixdb-56034.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -39,12 +36,12 @@ export const MainView = () => {
             Director: movies.Director.Name,
             Description: movies.Description,
             imageUrl: movies.imageUrl,
-            Genre: movies.Genre
           };
         });
-        dispatch(setMovies(moviesFromApi));
+        setMovies(moviesFromApi);
       });
   }, [token]);
+
   return (
     <BrowserRouter>
       <Row className="font-monospace">
