@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Button, Link } from 'react-bootstrap';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 
 export const LoginView = () => {
