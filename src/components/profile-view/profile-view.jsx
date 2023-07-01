@@ -4,20 +4,25 @@ import { UserEdit } from "./user-edit";
 import { Link } from "react-router-dom";
 import { FavoriteMovies } from "./favorite-movies";
 
-export const ProfileView = ({ updateUser }) => {
+export const ProfileView = ({ user, token, movies, updateUser, onLoggedOut, }) => {
+
+  let FavoriteMovies = movies.filter((movies) =>
+    user.FavoriteMovies.includes(movies._id)
+  );
+
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const deleteAccount = () => {
     fetch(`https://myflix-88009.herokuapp.com/users/${user._id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
         if (response.ok) {
-          alert('Your account has been deleted. Good Bye!');
+          alert("Your account has been deleted. Good Bye!");
           handleLogout();
         } else {
-          alert('Could not delete account');
+          alert("Could not delete account");
         }
       })
       .catch((e) => {
@@ -27,17 +32,17 @@ export const ProfileView = ({ updateUser }) => {
 
   return (
     <>
-      <Col xxl={4} xl={5} lg={6} md={12} xs={12} className='px-4 text-primary'>
+      <Col xxl={4} xl={5} lg={6} md={12} xs={12} className="px-4 text-primary">
         <UserInfo />
         <UserEdit updateUser={updateUser} />
         <Link
-          className='link-danger text-decoration-none w-100 text-end fs-6'
-          variant='link-danger'
-          type='submit'
+          className="link-danger text-decoration-none w-100 text-end fs-6"
+          variant="link-danger"
+          type="submit"
           onClick={() => {
             if (
               confirm(
-                'Are you sure you want to remove your account from our site?'
+                "Are you sure you want to remove your account from our site?"
               )
             ) {
               deleteAccount();
@@ -47,7 +52,7 @@ export const ProfileView = ({ updateUser }) => {
           Remove account permanently
         </Link>
       </Col>
-      <Container className='bg-light mb-4 px-4 rounded-4'>
+      <Container className="bg-light mb-4 px-4 rounded-4">
         <FavoriteMovies />
       </Container>
     </>
