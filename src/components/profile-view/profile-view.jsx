@@ -1,32 +1,23 @@
 import { UserInfo } from "./user-info";
 import { Col, Container } from "react-bootstrap";
 import { UserEdit } from "./user-edit";
-import { MovieCard } from "../MovieCard/movie-card";
 import { Link } from "react-router-dom";
 import { FavoriteMovies } from "./favorite-movies";
 
-export const ProfileView = ({
-  user,
-  token,
-  movies,
-  updateUser,
-  onLoggedOut,
-}) => {
-  let FavoriteMovies = movies.filter((movies) =>
-    user.FavoriteMovies.includes(movies._id)
-  );
-
+export const ProfileView = ({ updateUser }) => {
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const deleteAccount = () => {
-    fetch(`https://my-flixdb-56034.herokuapp.com//users/${user._id}`, {
-      method: "DELETE",
+    fetch(`https://myflix-88009.herokuapp.com/users/${user._id}`, {
+      method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
         if (response.ok) {
-          alert("Your account has been deleted.");
-          onLoggedOut();
+          alert('Your account has been deleted. Good Bye!');
+          handleLogout();
         } else {
-          alert("Could not delete account");
+          alert('Could not delete account');
         }
       })
       .catch((e) => {
@@ -36,35 +27,29 @@ export const ProfileView = ({
 
   return (
     <>
-      <Col>
-        <UserInfo user={user} />
-        <UserEdit updateUser={updateUser} onLoggedOut={onLoggedOut} />
+      <Col xxl={4} xl={5} lg={6} md={12} xs={12} className='px-4 text-primary'>
+        <UserInfo />
+        <UserEdit updateUser={updateUser} />
         <Link
-          className="mt-5"
-          variant="danger"
-          type="submit"
+          className='link-danger text-decoration-none w-100 text-end fs-6'
+          variant='link-danger'
+          type='submit'
           onClick={() => {
             if (
               confirm(
-                "Are you sure you want to remove your account from our site?"
+                'Are you sure you want to remove your account from our site?'
               )
             ) {
               deleteAccount();
             }
           }}
         >
-          Delete your Account
+          Remove account permanently
         </Link>
       </Col>
-
-      <Col md={12}>
-        <h3 className="mt-3 mb-3 text-light">Your favorite movies:</h3>
-      </Col>
-      {FavoriteMovies.map((movies) => (
-        <Col className="mb-4" key={movies.id} xl={2} lg={3} md={4} xs={6}>
-          <MovieCard movie={movies} />
-        </Col>
-      ))}
+      <Container className='bg-light mb-4 px-4 rounded-4'>
+        <FavoriteMovies />
+      </Container>
     </>
   );
 };
