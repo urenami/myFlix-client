@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { MovieCard } from '../movie-card/movie-card';
-import { MoviesFilter } from '../movies-filter/movies-filter';
-import { Col, Row } from 'react-bootstrap';
+import React from "react";
+import { useSelector } from "react-redux";
+import { MovieCard } from "../MovieCard/movie-card";
+import { MoviesFilter } from "../search-bar/SearchBar";
+import { Col, Row } from "react-bootstrap";
 
 export const MoviesList = () => {
   const movies = useSelector((state) => state.movies.list);

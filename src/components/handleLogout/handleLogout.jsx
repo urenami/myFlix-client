@@ -1,4 +1,4 @@
-import { setUser, setToken } from '../../redux/reducers/user';
+import { setUser, setToken } from "../../redux/reducers/user";
 
 export const handleLogout = () => {
   return (

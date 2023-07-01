@@ -7,10 +7,10 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { setMovies } from '../../redux/reducers/movies';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../redux/reducers/user';
-import { setMovies } from '../../redux/reducers/movies';
+import { setMovies } from "../../redux/reducers/movies";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
+import { setMovies } from "../../redux/reducers/movies";
 
 export const MainView = () => {
   const dispatch = useDispatch();
