@@ -4,7 +4,7 @@ import { Button, Col, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { SimilarMovies } from "./similar-movies";
 
-export const MovieView = ({ movies, user, token, updateUser }) => {
+export const MovieView = ({ updateUser }) => {
 
   const movies = useSelector((state) => state.movies.list);
   const user = useSelector((state) => state.user.user);
