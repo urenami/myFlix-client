@@ -1,11 +1,16 @@
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import {Button, Col, Container } from "react-bootstrap";
+import { Button, Col, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { SimilarMovies } from "./similar-movies";
 
-export const MovieView = ({ movies, user, token, updateUser }) => {
+export const MovieView = ({ updateUser }) => {
+
+  const movies = useSelector((state) => state.movies.list);
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const { movieId } = useParams();
+
   const movie = movies.find((m) => m.id === movieId);
   const [isFavoriteMovie, setAsFavorite] = useState(
     user.FavoriteMovies.includes(movies._id)
@@ -34,7 +39,7 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
       })
       .then((user) => {
         if (user) {
-          alert("Successfully added to favorites");
+          alert(`"${movie.Title}" was successfully added to favorites`);
           setAsFavorite(true);
           updateUser(user);
         }
@@ -74,11 +79,15 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
     <>
       <Col className="mb-4">
         <div>
-          <img src={movies.imageUrl} className="w-50 border" />
+        <img className='w-100 border-secondary mb-3' src={movie.imageUrl} />
         </div>
         <div>
           <span>Title: </span>
           <span>{movies.Title}</span>
+        </div>
+        <div>
+          <span className='fw-bold'>Genre: </span>
+          <span>{movie.Genre}</span>
         </div>
         <div>
           <span>Description: </span>
