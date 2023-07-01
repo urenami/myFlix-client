@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 export const SimilarMovies = ({ movies }) => {
-  
+  const movies = useSelector((state) => state.movies.list);
   let similarMovies = movies.filter(
     (m) => movies.Genre === movies.Genre && m.id !== movies._id
   );
@@ -15,7 +15,7 @@ export const SimilarMovies = ({ movies }) => {
         {similarMovies.map((movie) => (
           <Col
             className="mb-4 mx-auto justify-content-center"
-            key={movies._id}
+            key={movies.id}
             xxl={4}
             xl={6}
             lg={12}

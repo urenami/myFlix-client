@@ -14,22 +14,20 @@ import { setMovies } from '../../redux/reducers/movies';
 
 export const MainView = () => {
   const dispatch = useDispatch();
-
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const movies = useSelector((state) => state.movies.list);
 
   const updateUser = (user) => {
+    setUser(user);
     dispatch(setUser(user));
     localStorage.setItem("user", JSON.stringify(user));
   };
 
   useEffect(() => {
     if (!token) return;
-
     fetch("https://my-flixdb-56034.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -48,7 +46,6 @@ export const MainView = () => {
         dispatch(setMovies(moviesFromApi));
       });
   }, [token]);
-
   return (
     <BrowserRouter>
       <Row className="font-monospace">

@@ -1,8 +1,10 @@
-import { UserInfo } from "./user-info";
+import { UserInfo } from './user-info';
 import { Col, Container } from "react-bootstrap";
 import { UserEdit } from "./user-edit";
 import { Link } from "react-router-dom";
 import { FavoriteMovies } from "./favorite-movies";
+import { useSelector } from 'react-redux';
+import { handleLogout } from '../handleLogout/handleLogout';
 
 export const ProfileView = ({ updateUser }) => {
   const user = useSelector((state) => state.user.user);

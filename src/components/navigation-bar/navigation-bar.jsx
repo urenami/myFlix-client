@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { handleLogout } from '../handleLogout/handleLogout';
 
 export const NavigationBar = () => {
   const user = useSelector((state) => state.user.user);
@@ -31,7 +32,7 @@ export const NavigationBar = () => {
                 <Nav.Link as={Link} to="/profile">
                   Profile
                 </Nav.Link>
-                <Nav.Link onClick={onLoggedOut} className='ms-lg-auto'>Logout
+                <Nav.Link onClick={handleLogout} className='ms-lg-auto'>Logout
                   Logout
                 </Nav.Link>
               </>

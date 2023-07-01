@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movies }) => {
   return (
-    <Link to={`/movies/${encodeURIComponent(movies._id)}`}>
+    <Link to={`/movies/${encodeURIComponent(movies.id)}`}>
 
       <Card className="h-100" border="primary">
         <Card.Img variant="top" src={movies.imageUrl} className="border" />
