@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import { SimilarMovies } from "./similar-movies";
 
 export const MovieView = ({ movies, user, token, updateUser }) => {
+  const movies = useSelector((state) => state.movies.list);
   const { movieId } = useParams();
+
   const movie = movies.find((m) => m.id === movieId);
+
   const [isFavoriteMovie, setAsFavorite] = useState(
     user.FavoriteMovies.includes(movies._id)
   );
