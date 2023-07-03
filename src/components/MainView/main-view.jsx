@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { MovieCard } from "../MovieCard/movie-card";
+import { useEffect } from "react";
+import { MoviesList } from '../movies-list/movies-list';
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
@@ -7,17 +7,21 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Row, Col } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { useSelector, useDispatch } from "react-redux";
+import { setMovies } from "../../redux/reducers/movies";
+import { setUser } from "../../redux/reducers/user";
 
 export const MainView = () => {
+  const dispatch = useDispatch();
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
-  
+
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => stateuser.token);
+  const movies = useSelector((state) => state.movies.list);
 
   const updateUser = (user) => {
-    setUser(user);
+    dispatch(setUser(user));
     localStorage.setItem("user", JSON.stringify(user));
   };
 
@@ -38,26 +42,18 @@ export const MainView = () => {
             imageUrl: movies.imageUrl,
           };
         });
-        setMovies(moviesFromApi);
+        dispatch(setMovies(moviesFromApi));
       });
   }, [token]);
 
   return (
     <BrowserRouter>
-      <Row className="font-monospace">
+      <Row sm={12}>
         <Col className="mb-4">
-          <NavigationBar
-            user={user}
-            onLoggedOut={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.clear();
-              window.location.reload();
-            }}
-          />
+          <NavigationBar />
         </Col>
       </Row>
-      <Row className="justify-content-md-center font-monospace">
+      <Row className="justify-content-md-center">
         <Routes>
           <Route
             path="/signup"
@@ -66,7 +62,15 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col className="m-3" md={5}>
+                  <Col
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={6}
+                    xl={5}
+                    xxl={5}
+                    className="m-2"
+                  >
                     <SignupView />
                   </Col>
                 )}
@@ -80,13 +84,16 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col className="m-3" md={5}>
-                    <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
-                    />
+                  <Col
+                    xs={12}
+                    sm={12}
+                    md={10}
+                    lg={6}
+                    xl={5}
+                    xxl={5}
+                    className="m-3"
+                  >
+                    <LoginView />
                   </Col>
                 )}
               </>
@@ -95,67 +102,23 @@ export const MainView = () => {
           <Route
             path="/movies/:movieId"
             element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty</Col>
-                ) : (
-                  <Col md={8}>
-                    <MovieView
-                      movies={movies}
-                      user={user}
-                      token={token}
-                      updateUser={updateUser}
-                    />
-                  </Col>
-                )}
-              </>
+              movies.length === 0 ? (
+                <Col>The list is empty!</Col>
+              ) : (
+                <Col md={8}>
+                  <MovieView updateUser={updateUser} />
+                </Col>
+              )
             }
           />
-          <Route
-            path="/"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty</Col>
-                ) : (
-                  <>
-                    {movies.map((movies) => (
-                      <Col className="mb-4" key={movies._id} md={4}>
-                        <MovieCard movies={movies} />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </>
-            }
-          />
+          <Route path="/" element={<MoviesList />} />
           <Route
             path="/profile"
             element={
               <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
-                  <>
-                    <Col>
-                      <ProfileView
-                        user={user}
-                        token={token}
-                        movies={movies}
-                        onLoggedOut={() => {
-                          setUser(null);
-                          setToken(null);
-                          localStorage.clear();
-                        }}
-                        updateUser={updateUser}
-                      />
-                    </Col>
-                  </>
-                )}
+                <Col>
+                  <ProfileView updateUser={updateUser} />
+                </Col>
               </>
             }
           />
