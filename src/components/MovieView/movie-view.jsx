@@ -3,19 +3,22 @@ import { Link } from "react-router-dom";
 import {Button, Col, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { SimilarMovies } from "./similar-movies";
+import { useSelector } from 'react-redux';
 
-export const MovieView = ({ movies, user, token, updateUser }) => {
+export const MovieView = ({ updateUser }) => {
   const movies = useSelector((state) => state.movies.list);
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const { movieId } = useParams();
 
   const movie = movies.find((m) => m.id === movieId);
 
   const [isFavoriteMovie, setAsFavorite] = useState(
-    user.FavoriteMovies.includes(movies._id)
+    user.FavoriteMovies.includes(movie.id)
   );
 
   useEffect(() => {
-    setAsFavorite(user.FavoriteMovies.includes(movies._id));
+    setAsFavorite(user.FavoriteMovies.includes(movie.id));
     window.scrollTo(0, 0);
   }, [movieId]);
 

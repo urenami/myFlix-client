@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { MovieCard } from "../MovieCard/movie-card";
+import { useEffect } from "react";
+import { MoviesList } from '../movies-list/movies-list';
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
@@ -9,18 +9,19 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
+import { setUser } from "../../redux/reducers/user";
 
 export const MainView = () => {
+  const dispatch = useDispatch();
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const user = useSelector((state) => state.user);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-  const movies = useSelector((state) => state.movies.value);
 
-  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => stateuser.token);
+  const movies = useSelector((state) => state.movies.list);
 
   const updateUser = (user) => {
-    setUser(user);
+    dispatch(setUser(user));
     localStorage.setItem("user", JSON.stringify(user));
   };
 
@@ -47,15 +48,11 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      <NavigationBar
-        user={user}
-        onLoggedOut={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}
-      />
-
+      <Row sm={12}>
+        <Col className="mb-4">
+          <NavigationBar />
+        </Col>
+      </Row>
       <Row className="justify-content-md-center">
         <Routes>
           <Route
@@ -65,7 +62,15 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col md={5}>
+                  <Col
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={6}
+                    xl={5}
+                    xxl={5}
+                    className="m-2"
+                  >
                     <SignupView />
                   </Col>
                 )}
@@ -79,13 +84,16 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col md={5}>
-                    <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
-                    />
+                  <Col
+                    xs={12}
+                    sm={12}
+                    md={10}
+                    lg={6}
+                    xl={5}
+                    xxl={5}
+                    className="m-3"
+                  >
+                    <LoginView />
                   </Col>
                 )}
               </>
@@ -94,83 +102,23 @@ export const MainView = () => {
           <Route
             path="/movies/:movieId"
             element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <Col md={8}>
-                    <MovieView
-                      movies={movies}
-                      user={user}
-                      username={user.Username}
-                      favoriteMovies={user.FavoriteMovies}
-                    />
-                  </Col>
-                )}
-              </>
+              movies.length === 0 ? (
+                <Col>The list is empty!</Col>
+              ) : (
+                <Col md={8}>
+                  <MovieView updateUser={updateUser} />
+                </Col>
+              )
             }
           />
+          <Route path="/" element={<MoviesList />} />
           <Route
-            path="/users"
+            path="/profile"
             element={
               <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
-                  <Col md={8}>
-                    <ProfileView user={user} movies={movies} />
-                  </Col>
-                )}
-              </>
-            }
-          />
-
-          <Route
-            path="/"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
-                  <>
-                    <Row>
-                      <Col
-                        className="d-flex justify-content-center"
-                        style={{
-                          marginTop: 90,
-                          marginBottom: 20,
-                        }}
-                      >
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          placeholder="Search Movies"
-                          value={searchTerm}
-                          onChange={handleSearch}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      {filteredMovies.length === 0 ? (
-                        <Col>The list is empty!</Col>
-                      ) : (
-                        filteredMovies.map((movie) => (
-                          <Col
-                            className="mb-4"
-                            key={movie.id}
-                            sm={12}
-                            md={6}
-                            lg={4}
-                          >
-                            <MovieCard movie={movie} />
-                          </Col>
-                        ))
-                      )}
-                    </Row>
-                  </>
-                )}
+                <Col>
+                  <ProfileView updateUser={updateUser} />
+                </Col>
               </>
             }
           />

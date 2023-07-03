@@ -1,8 +1,8 @@
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { setUser, setToken } from '../../redux/reducers/user';
 import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router';
 
 export const LoginView = () => {
 

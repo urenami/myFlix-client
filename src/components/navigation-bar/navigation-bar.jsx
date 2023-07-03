@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
