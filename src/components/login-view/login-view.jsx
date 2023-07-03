@@ -1,5 +1,5 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import React, { useState } from 'react';
+import { Form, Button, Link } from 'react-bootstrap';
 import { setUser, setToken } from '../../redux/reducers/user';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router';
@@ -71,6 +71,11 @@ export const LoginView = () => {
       <Button className="mt-3 w-100" variant="primary" type="submit">
         Submit
       </Button>
+      <div className='text-end mt-3'>
+        <a className='text-decoration-none fs-6' href='/signup'>
+          Create a new Account
+        </a>
+      </div>
     </Form>
   );
 };

@@ -40,7 +40,7 @@ export const MovieView = ({ updateUser }) => {
       })
       .then((user) => {
         if (user) {
-          alert("Successfully added to favorites");
+          alert(`"${movie.Title}" was successfully added to favorites`);
           setAsFavorite(true);
           updateUser(user);
         }
@@ -85,6 +85,10 @@ export const MovieView = ({ updateUser }) => {
         <div>
           <span>Title: </span>
           <span>{movies.Title}</span>
+        </div>
+        <div>
+          <span className='fw-bold'>Genre: </span>
+          <span>{movies.Genre}</span>
         </div>
         <div>
           <span>Description: </span>

@@ -75,7 +75,14 @@ export const SignupView = () => {
         />
         </Form.Group>
 
-      <Button className='mt-3 w-100' variant='primary' type='submit'>Sign Up</Button>
+        <Button className='mt-3 w-100' variant='primary' type='submit'>
+        Submit
+      </Button>
+      <div className='text-end mt-3'>
+        <a className='text-decoration-none' href='/login'>
+          Log in
+        </a>
+      </div>
     </Form>
   );
 };

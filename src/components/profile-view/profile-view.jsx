@@ -5,16 +5,9 @@ import { MovieCard } from "../MovieCard/movie-card";
 import { Link } from "react-router-dom";
 import { FavoriteMovies } from "./favorite-movies";
 
-export const ProfileView = ({
-  user,
-  token,
-  movies,
-  updateUser,
-  onLoggedOut,
-}) => {
-  let FavoriteMovies = movies.filter((movies) =>
-    user.FavoriteMovies.includes(movies._id)
-  );
+export const ProfileView = ({ updateUser }) => {
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
 
   const deleteAccount = () => {
     fetch(`https://my-flixdb-56034.herokuapp.com//users/${user._id}`, {
@@ -37,8 +30,8 @@ export const ProfileView = ({
   return (
     <>
       <Col>
-        <UserInfo user={user} />
-        <UserEdit updateUser={updateUser} onLoggedOut={onLoggedOut} />
+        <UserInfo />
+        <UserEdit updateUser={updateUser}  />
         <Link
           className="mt-5"
           variant="danger"
@@ -56,15 +49,9 @@ export const ProfileView = ({
           Delete your Account
         </Link>
       </Col>
-
-      <Col md={12}>
-        <h3 className="mt-3 mb-3 text-light">Your favorite movies:</h3>
-      </Col>
-      {FavoriteMovies.map((movies) => (
-        <Col className="mb-4" key={movies.id} xl={2} lg={3} md={4} xs={6}>
-          <MovieCard movie={movies} />
-        </Col>
-      ))}
+      <Container className='bg-light mb-4 px-4 rounded-4'>
+        <FavoriteMovies />
+      </Container>
     </>
   );
 };

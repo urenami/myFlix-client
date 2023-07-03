@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useSelector } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
 
 
-export const UserEdit = ({user, token, updateUser, onLoggedOut}) => {
+export const UserEdit = () => {
+    const user = useSelector((state) => state.user.user);
+    const token = useSelector((state) => state.user.token);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -11,19 +14,17 @@ export const UserEdit = ({user, token, updateUser, onLoggedOut}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const data = {}
+        const data = {};
 
-        if (username !== '') {
-            data.Username = username
-        } else if (email !== '') {
-            data.Email = email
-        } else if (password !== '') {
-            data.Password = password
-        } else if (birthday !== '') {
-            data.Birthday = birthday
-        } else {
-            alert('Nothing to change!')
-        }
+        username !== ''
+      ? (data.Username = username)
+      : email !== ''
+      ? (data.Email = email)
+      : password !== ''
+      ? (data.Password = password)
+      : birthday !== ''
+      ? (data.Birthday = birthday)
+      : alert('Nothing to change!');
 
         fetch(`https://myflix-88009.herokuapp.com/users/${user._id}`, {
             method: 'PUT',
@@ -31,8 +32,7 @@ export const UserEdit = ({user, token, updateUser, onLoggedOut}) => {
             headers: { 
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json" 
-            }
-
+            },
         }).then((response) => {
             if (response.ok) {
                 alert('Your data was updated!');
@@ -45,8 +45,9 @@ export const UserEdit = ({user, token, updateUser, onLoggedOut}) => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <>
             <h2 className='text-center'>Update your profile</h2>
+            <Form className=' pt-3' onSubmit={handleSubmit}>
             <Form.Group controlId='formUsername'>
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
@@ -86,7 +87,10 @@ export const UserEdit = ({user, token, updateUser, onLoggedOut}) => {
                 />
             </Form.Group>
 
-            <Button className='mt-3 w-100' variant='primary' type='submit'>Submit</Button>
-        </Form>
-    );
+            <Button className='mt-3 w-25' variant='primary' type='submit'>
+          Submit
+        </Button>
+      </Form>
+    </>
+  );
 };

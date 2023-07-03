@@ -11,7 +11,7 @@ export const MoviesList = () => {
     .toLowerCase();
 
   const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(filter)
+    movies.Title.toLowerCase().includes(filter)
   );
 
   return (
