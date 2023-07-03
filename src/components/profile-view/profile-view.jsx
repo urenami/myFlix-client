@@ -1,7 +1,6 @@
 import { UserInfo } from "./user-info";
 import { Col, Container } from "react-bootstrap";
 import { UserEdit } from "./user-edit";
-import { MovieCard } from "../MovieCard/movie-card";
 import { Link } from "react-router-dom";
 import { FavoriteMovies } from "./favorite-movies";
 
