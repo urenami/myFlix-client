@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
-
+import { handleLogout } from '../handleLogout/handleLogout';
 
 export const UserEdit = () => {
     const user = useSelector((state) => state.user.user);
@@ -36,7 +36,7 @@ export const UserEdit = () => {
         }).then((response) => {
             if (response.ok) {
                 alert('Your data was updated!');
-                onLoggedOut();
+                handleLogout();
             } else {
                 console.log(data)
                 alert('Something Wrong')
