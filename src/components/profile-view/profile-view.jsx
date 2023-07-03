@@ -1,9 +1,9 @@
 import { UserInfo } from "./user-info";
 import { Col, Container } from "react-bootstrap";
 import { UserEdit } from "./user-edit";
+import { MovieCard } from "../MovieCard/movie-card";
 import { Link } from "react-router-dom";
 import { FavoriteMovies } from "./favorite-movies";
-import { handleLogout } from '../handleLogout/handleLogout';
 
 export const ProfileView = ({ updateUser }) => {
   const user = useSelector((state) => state.user.user);
@@ -17,7 +17,7 @@ export const ProfileView = ({ updateUser }) => {
       .then((response) => {
         if (response.ok) {
           alert("Your account has been deleted.");
-          handleLogout();
+          onLoggedOut();
         } else {
           alert("Could not delete account");
         }

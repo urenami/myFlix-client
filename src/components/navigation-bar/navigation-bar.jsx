@@ -1,7 +1,6 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { handleLogout } from '../handleLogout/handleLogout';
 
 export const NavigationBar = () => {
   const user = useSelector((state) => state.user);
@@ -33,7 +32,7 @@ export const NavigationBar = () => {
                 <Nav.Link as={Link} to="/profile">
                   Profile
                 </Nav.Link>
-                <Nav.Link onClick={handleLogout} >
+                <Nav.Link onClick={() => dispatch(setUser(null))}>
                   Logout
                 </Nav.Link>
               </>
