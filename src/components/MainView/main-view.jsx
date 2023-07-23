@@ -1,76 +1,77 @@
-import { useEffect } from "react";
-import { MoviesList } from '../movies-list/movies-list';
+import { useState, useEffect } from "react";
+import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import { ProfileView } from "../profile-view/profile-view";
-import { Row, Col } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-import { useSelector, useDispatch } from "react-redux";
-import { setMovies } from '../../redux/reducers/movies';
-import { setUser } from '../../redux/reducers/user';
+import { ProfileView } from "../profile-view/profile-view";
+import { SearchBar } from "../search-bar/search-bar";
+import { Col, Row } from "react-bootstrap";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
-  const dispatch = useDispatch();
-
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => stateuser.token);
-  const movies = useSelector((state) => state.movies.list);
-
-  const updateUser = (user) => {
-    dispatch(setUser(user));
-    localStorage.setItem("user", JSON.stringify(user));
-  };
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState(null);
+  const [token, setToken] = useState(null);
+  const [userQuery, setUserQuery] = useState(null);
+    
 
   useEffect(() => {
-    if (!token) return;
-
+    if (!token) {
+      return;
+    }
     fetch("https://my-flixdb-56034.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}`, }
     })
       .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.map((movies) => {
-          return {
-            _id: movies._id,
-            Title: movies.Title,
-            Director: movies.Director.Name,
-            Description: movies.Description,
-            imageUrl: movies.imageUrl,
-          };
+      .then((movies) => {
+        setMovies(movies);
         });
-        dispatch(setMovies(moviesFromApi));
-      });
-  }, [token]);
+      }, [token]);
+
+  const onSearch = function (searchInput) {
+    setUserQuery(searchInput);
+  };
+
+  useEffect(
+    function () {
+      if (!userQuery) {
+        setFilteredMovies([]);
+      } else {
+        let searchResult = movies.filter(function(movie) {
+          const movieLowerCase= movie.Title.toLowerCase();
+          const directorLowerCase = movie.Director.Name.toLowerCase();
+          const genreLowerCase= movie.Genre.Name.toLowerCase();
+          const userQueryLowerCase = userQuery.toLowerCase();
+
+          return (
+            movieLowerCase.includes(userQueryLowerCase) ||
+            directorLowerCase.includes(userQueryLowerCase) ||
+            genreLowerCase.includes(userQueryLowerCase)
+          );
+        });
+        setFilteredMovies(searchResult);
+      }
+    }, [movies, userQuery]);
 
   return (
     <BrowserRouter>
-      <Row sm={12}>
-        <Col className="mb-4">
-          <NavigationBar />
-        </Col>
-      </Row>
-      <Row className="justify-content-md-center">
-        <Routes>
-          <Route
-            path="/signup"
-            element={
+    <NavigationBar user={user} onLoggedOut={() => {setUser(null); setToken(null); localStorage.clear(); }} />
+<Row className="justify-content-md-center">
+  <Routes>
+    <Route
+path="/signup"
+element={
               <>
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col
-                    xs={12}
-                    sm={12}
-                    md={12}
-                    lg={6}
-                    xl={5}
-                    xxl={5}
-                    className="m-2"
-                  >
-                    <SignupView />
-                  </Col>
+                <Col md={5}>
+                  <SignupView />
+                </Col>
                 )}
               </>
             }
@@ -82,41 +83,90 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col
-                    xs={12}
-                    sm={12}
-                    md={10}
-                    lg={6}
-                    xl={5}
-                    xxl={5}
-                    className="m-3"
-                  >
-                    <LoginView />
+                  <Col md={5}>
+                    <LoginView onLoggedIn={(user, token) => {
+                      setUser(user);
+                      setToken(token);}} />
                   </Col>
                 )}
               </>
             }
           />
-          <Route
+        <Route
             path="/movies/:movieId"
             element={
-              movies.length === 0 ? (
-                <Col>The list is empty!</Col>
-              ) : (
-                <Col md={8}>
-                  <MovieView updateUser={updateUser} />
-                </Col>
-              )
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>No movies to show</Col>
+                ) : (
+                  <Col md={8}>
+                    <MovieView movies={movies} />
+                  </Col>
+                )}
+              </>
             }
           />
-          <Route path="/" element={<MoviesList />} />
+        <Route
+            path="/"
+            element={
+              <>
+                <SearchBar onSearch={onSearch} />
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : userQuery && filteredMovies.length === 0 ? (
+                  <Col className= "mt-5">
+                  Sorry, we could not find any movies that match your search.
+                  Please try again with a different term.
+                  </Col>
+                ) : userQuery ? (
+                  <>
+                  {filteredMovies.map(function(movie) {
+                    return (
+                      <Col
+                      className="mb-4"
+                      key={movie._id}
+                      xs={6}
+                      md={4}
+                      lg={3}
+                      xl={2}
+                      >
+                      <MovieCard movie={movie} />
+                      </Col>
+                    );
+                  })}
+                  </>
+                ) : (
+                  <>
+                  {movies.map(function(movie) {
+                    return (
+                      <Col
+                        className="mb-4"
+                        key={movie._id}
+                        xs={6}
+                        md={4}
+                        lg={3}
+                        xl={2}
+                      >
+                        <MovieCard movie={movie} />
+                      </Col>
+                    );
+                  })}
+                  </>
+                )}
+              </>
+            }
+          />
           <Route
             path="/profile"
             element={
               <>
-                <Col>
-                  <ProfileView updateUser={updateUser} />
-                </Col>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <ProfileView user={user} movies={movies} token={token} />
+                )}
               </>
             }
           />
@@ -125,3 +175,5 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
+
+export default MainView;
