@@ -5,11 +5,12 @@ import { FavoriteMovies } from "./favorite-movies";
 import { Link } from 'react-router-dom';
 import "./profile-view.scss";
 
-function ProfileView ({
-  movies,
-  removeMovie,
-  user
-}) {
+function ProfileView({ user, movies, token, removeMovie }) {
+
+  const handleRemoveMovie = (movieId) => {
+    
+    removeMovie(movieId);
+  };
  
 return (
 <Container>

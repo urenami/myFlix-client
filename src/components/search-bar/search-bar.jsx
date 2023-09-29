@@ -18,9 +18,7 @@ function SearchBar({ onSearch }) {
         aria-label="Search"
         onChange={(event) => {
           setSearchInput(event.target.value);
-          if (!event.target.value) {
-            onSearch('');
-          }
+          onSearch(event.target.value); 
         }}
         placeholder="Discover your next favourite movie! Search by title, director, or genre"
         type="search"

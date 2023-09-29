@@ -18,20 +18,20 @@ export const MainView = () => {
   const [token, setToken] = useState(null);
   const [userQuery, setUserQuery] = useState(null);
     
-
   useEffect(() => {
     if (!token) {
       return;
     }
     fetch("https://my-flixdb-56034.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}`, }
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
       .then((movies) => {
+        console.log("Fetched movies:", movies); 
         setMovies(movies);
-        });
-      }, [token]);
-
+      });
+  }, [token]);
+  
   const onSearch = function (searchInput) {
     setUserQuery(searchInput);
   };
@@ -56,6 +56,10 @@ export const MainView = () => {
         setFilteredMovies(searchResult);
       }
     }, [movies, userQuery]);
+
+    const removeMovie = (movieId) => {
+      console.log(`Removing movie with ID: ${movieId}`);
+    };
 
   return (
     <BrowserRouter>
@@ -165,7 +169,7 @@ element={
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : (
-                  <ProfileView user={user} movies={movies} token={token} />
+                  <ProfileView user={user} movies={movies} token={token} removeMovie={removeMovie} />
                 )}
               </>
             }
