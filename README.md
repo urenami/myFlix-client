@@ -1,3 +1,18 @@
 # myFlix-client
 
-This is a Single Page React Application (SPA) that was built for Achievement 3 of CareerFoundry's Full-Stack Web Development Program. Achievement 2 was builiding the RESTful API, movie_api , which stores the backend data, including a list of favorite movies and user who has created a profile. This is the client-side of the myFlix application which allows users to signup, login, and browse thier favorite movies. Once a user is logged in, they can add movies to thier Favorite's list which is present in the Profile section of the application. There, they can also update user information, username, password, email, and birthday. User's can also find additional information on their favorite movies by navigating to the movie view. Once there, various details pertaining to the movie and director can be found. User's can also de-register their account if they wish to. This application is hosted on Netlify.
+Welcome to the myFlix movie app front-end! This project is designed to work alongside the movie-api repository, which can be found here https://github.com/urenami/movie-api. myFlix is a web application created for movie enthusiasts, providing them with an interactive platform to browse, search, and discover movies. In addition, users can create a profile and manage their favorite movies.
+## Objective
+The objective of this project was to build the client-side of the myFlix app using React, based on its existing server-side code (REST API and database). The goal was to create a seamless user experience by combining server-side and client-side development and in conjuction with the other half of the project as previously mentioned specifically utilizes the MERN (MongoDB, Express, React, and Node.js) stack.
+## Features
+- User registration and authentication
+- Browse and search movie catalog
+- View movie details
+- Add and remove movies from a list of favorites
+- Responsive design for various devices and screen sizes
+## Technologies
+- React
+- React Router
+- React Bootstrap
+## Link to hosted project
+
+https://ezmyflixapp.netlify.app/login
