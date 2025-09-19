@@ -2,82 +2,77 @@ import PropTypes from "prop-types";
 import { Row, Col, Container, Card, Button } from "react-bootstrap";
 import { UpdateUser } from "./update-user";
 import { FavoriteMovies } from "./favorite-movies";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./profile-view.scss";
 
-function ProfileView({ user, movies, token, removeMovie }) {
-
+function ProfileView({ user, setUser, movies, token }) {
   const handleRemoveMovie = (movieId) => {
-    
-    removeMovie(movieId);
+    fetch(`http://localhost:8080/users/${user.Username}/movies/${movieId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser); // ✅ keep React state in sync
+      })
+      .catch((err) => console.error("Error removing favorite:", err));
   };
- 
-return (
-<Container>
+
+  return (
+    <Container>
       <Row>
         <Col>
           <Card>
             <Card.Body>
-              <div>
-                <h4>User Information</h4>
-                <p>Username: {user.Username}</p>
-                <p>Birthday: {user.Birthday.slice(0, 10)}</p>
-                <p>e-mail: {user.Email}</p>
-              </div>
+              <h4>User Information</h4>
+              <p>Username: {user.Username}</p>
+              <p>Birthday: {user.Birthday.slice(0, 10)}</p>
+              <p>Email: {user.Email}</p>
             </Card.Body>
           </Card>
         </Col>
         <Col>
           <Card>
             <Card.Body>
-              <UpdateUser user={user} />
+              {/* ✅ FIX: pass setUser to UpdateUser */}
+              <UpdateUser user={user} setUser={setUser} />
             </Card.Body>
           </Card>
         </Col>
       </Row>
       <Row>
-        <FavoriteMovies user={user} movies={movies} />
+        <FavoriteMovies
+          user={user}
+          movies={movies}
+          onRemove={handleRemoveMovie} // ✅ pass down function
+        />
       </Row>
       <Row>
         <div>
-          <Button
-            className="back-button"
-            as={Link}
-            to={"/"}
-          >
+          <Button className="back-button" as={Link} to={"/"}>
             Back
           </Button>
         </div>
       </Row>
     </Container>
-  )
-};
+  );
+}
 
-ProfileView.propTypes= {
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      Title: PropTypes.string.isRequired,
-      Description: PropTypes.string.isRequired,
-      Genre: PropTypes.shape ({
-        Name: PropTypes.string.isRequired,
-      }).isRequired,
-      Director: PropTypes.shape({
-        Name: PropTypes.string.isRequired,
-        Bio: PropTypes.string,
-      }).isRequired,
-      imageUrl: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  removeMovie: PropTypes.func.isRequired, 
+ProfileView.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     Username: PropTypes.string.isRequired,
-    Password: PropTypes.string.isRequired,
     Email: PropTypes.string.isRequired,
     Birthday: PropTypes.string.isRequired,
     FavoriteMovies: PropTypes.array,
   }).isRequired,
+  setUser: PropTypes.func.isRequired, // ✅ now required
+  movies: PropTypes.array.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 export { ProfileView };
