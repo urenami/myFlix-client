@@ -12,27 +12,35 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState(storedUser ? storedUser : null);
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [userQuery, setUserQuery] = useState(null);
-    
+
   useEffect(() => {
     if (!token) {
       return;
     }
-    fetch("https://my-flixdb-56034.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` }
+
+    fetch("http://localhost:8080/movies", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
-      .then((movies) => {
-        console.log("Fetched movies:", movies); 
-        setMovies(movies);
+      .then((data) => {
+        console.log(data);
+        setMovies(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
       });
   }, [token]);
-  
-  const onSearch = function (searchInput) {
+
+  const onSearch = (searchInput) => {
     setUserQuery(searchInput);
   };
 
@@ -41,10 +49,10 @@ export const MainView = () => {
       if (!userQuery) {
         setFilteredMovies([]);
       } else {
-        let searchResult = movies.filter(function(movie) {
-          const movieLowerCase= movie.Title.toLowerCase();
+        let searchResult = movies.filter(function (movie) {
+          const movieLowerCase = movie.Title.toLowerCase();
           const directorLowerCase = movie.Director.Name.toLowerCase();
-          const genreLowerCase= movie.Genre.Name.toLowerCase();
+          const genreLowerCase = movie.Genre.Name.toLowerCase();
           const userQueryLowerCase = userQuery.toLowerCase();
 
           return (
@@ -55,27 +63,36 @@ export const MainView = () => {
         });
         setFilteredMovies(searchResult);
       }
-    }, [movies, userQuery]);
+    },
+    [movies, userQuery]
+  );
 
-    const removeMovie = (movieId) => {
-      console.log(`Removing movie with ID: ${movieId}`);
-    };
+  const removeMovie = (movieId) => {
+    console.log(`Removing movie with ID: ${movieId}`);
+  };
 
   return (
     <BrowserRouter>
-    <NavigationBar user={user} onLoggedOut={() => {setUser(null); setToken(null); localStorage.clear(); }} />
-<Row className="justify-content-md-center">
-  <Routes>
-    <Route
-path="/signup"
-element={
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}
+      />
+      <Row className="justify-content-md-center">
+        <Routes>
+          <Route
+            path="/signup"
+            element={
               <>
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                <Col md={5}>
-                  <SignupView />
-                </Col>
+                  <Col md={5}>
+                    <SignupView />
+                  </Col>
                 )}
               </>
             }
@@ -88,31 +105,33 @@ element={
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user, token) => {
-                      setUser(user);
-                      setToken(token);}} />
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }}
+                    />
                   </Col>
                 )}
               </>
             }
           />
-        <Route
+          <Route
             path="/movies/:movieId"
             element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>No movies to show</Col>
-                ) : (
-                  <Col md={8}>
-                    <MovieView movies={movies} />
-                  </Col>
-                )}
-              </>
+              !user ? (
+                <Navigate to="/login" replace />
+              ) : movies.length === 0 ? (
+                <Col>No movies to show</Col>
+              ) : (
+                <Col md={8}>
+                  <MovieView movies={movies} user={user} setUser={setUser} />{" "}
+                  {/* ✅ */}
+                </Col>
+              )
             }
           />
-        <Route
+          <Route
             path="/"
             element={
               <>
@@ -120,43 +139,43 @@ element={
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : userQuery && filteredMovies.length === 0 ? (
-                  <Col className= "mt-5">
-                  Sorry, we could not find any movies that match your search.
-                  Please try again with a different term.
+                  <Col className="mt-5">
+                    Sorry, we could not find any movies that match your search.
+                    Please try again with a different term.
                   </Col>
                 ) : userQuery ? (
                   <>
-                  {filteredMovies.map(function(movie) {
-                    return (
-                      <Col
-                      className="mb-4"
-                      key={movie._id}
-                      xs={6}
-                      md={4}
-                      lg={3}
-                      xl={2}
-                      >
-                      <MovieCard movie={movie} />
-                      </Col>
-                    );
-                  })}
+                    {filteredMovies.map(function (movie) {
+                      return (
+                        <Col
+                          className="mb-4"
+                          key={movie._id}
+                          xs={6}
+                          md={4}
+                          lg={3}
+                          xl={2}
+                        >
+                          <MovieCard movie={movie} />
+                        </Col>
+                      );
+                    })}
                   </>
                 ) : (
                   <>
-                  {movies.map(function(movie) {
-                    return (
-                      <Col
-                        className="mb-4"
-                        key={movie._id}
-                        xs={6}
-                        md={4}
-                        lg={3}
-                        xl={2}
-                      >
-                        <MovieCard movie={movie} />
-                      </Col>
-                    );
-                  })}
+                    {movies.map(function (movie) {
+                      return (
+                        <Col
+                          className="mb-4"
+                          key={movie._id}
+                          xs={6}
+                          md={4}
+                          lg={3}
+                          xl={2}
+                        >
+                          <MovieCard movie={movie} />
+                        </Col>
+                      );
+                    })}
                   </>
                 )}
               </>
@@ -165,13 +184,16 @@ element={
           <Route
             path="/profile"
             element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
-                  <ProfileView user={user} movies={movies} token={token} removeMovie={removeMovie} />
-                )}
-              </>
+              !user ? (
+                <Navigate to="/login" replace />
+              ) : (
+                <ProfileView
+                  user={user}
+                  setUser={setUser} // ✅ new
+                  movies={movies}
+                  token={token}
+                />
+              )
             }
           />
         </Routes>
