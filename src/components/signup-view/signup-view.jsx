@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import "./signup-view.scss";
 
 export const SignupView = ({ onSignedUp }) => {
   const [username, setUsername] = useState("");
@@ -43,7 +44,9 @@ export const SignupView = ({ onSignedUp }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className="signup-form" onSubmit={handleSubmit}>
+      <h2>Sign Up</h2>
+
       <Form.Group controlId="formUsername" className="mb-3">
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -62,6 +65,7 @@ export const SignupView = ({ onSignedUp }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          minLength="6"
         />
       </Form.Group>
 
