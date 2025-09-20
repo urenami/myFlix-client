@@ -1,0 +1,19 @@
+.main-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 20px;  
+  padding: 20px;
+}
+
+.search-bar {
+  margin-bottom: 25px;
+}
+
+.row {
+  gap: 15px;
+}
+
+.col {
+  display: flex;
+  justify-content: center;
+}
