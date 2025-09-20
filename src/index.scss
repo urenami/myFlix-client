@@ -1,5 +1,19 @@
+// Bootstrap variable overrides
 $primary: black;
 $body-bg: rgb(4, 14, 105);
 
-
+// Import Bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
+
+// Global form input styles
+input,
+textarea,
+select {
+  color: #fff !important;       // text inside fields
+  background-color: #002b80;    // input background
+  border: 1px solid #ccc;       // subtle border
+}
+
+input::placeholder {
+  color: #bbb;                  // lighter placeholder text
+}
