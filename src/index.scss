@@ -5,15 +5,34 @@ $body-bg: rgb(4, 14, 105);
 // Import Bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
 
-// Global form input styles
+// === Global form input styles ===
 input,
 textarea,
 select {
-  color: #fff !important;       // text inside fields
-  background-color: #002b80;    // input background
-  border: 1px solid #ccc;       // subtle border
+  color: #000;                  // black text inside fields
+  background-color: #fff;       // white input background
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
 }
 
-input::placeholder {
-  color: #bbb;                  // lighter placeholder text
+// Placeholder text
+input::placeholder,
+textarea::placeholder {
+  color: #666; // medium gray for readability
+}
+
+// Focus state for all inputs
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 4px rgba(13, 110, 253, 0.5);
+  outline: none;
+}
+
+// Specific fix for date input
+input[type="date"] {
+  color: #000 !important;
+  background-color: #fff !important;
 }
