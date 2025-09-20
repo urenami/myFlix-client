@@ -20,56 +20,44 @@ export const MainView = () => {
   const [userQuery, setUserQuery] = useState(null);
 
   useEffect(() => {
-    if (!token) {
-      return;
-    }
+    if (!token) return;
 
     fetch("http://localhost:8080/movies", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setMovies(data);
       })
-      .catch((error) => {
-        console.error("Error fetching movies:", error);
-      });
+      .catch((error) => console.error("Error fetching movies:", error));
   }, [token]);
 
   const onSearch = (searchInput) => {
     setUserQuery(searchInput);
   };
 
-  useEffect(
-    function () {
-      if (!userQuery) {
-        setFilteredMovies([]);
-      } else {
-        let searchResult = movies.filter(function (movie) {
-          const movieLowerCase = movie.Title.toLowerCase();
-          const directorLowerCase = movie.Director.Name.toLowerCase();
-          const genreLowerCase = movie.Genre.Name.toLowerCase();
-          const userQueryLowerCase = userQuery.toLowerCase();
+  useEffect(() => {
+    if (!userQuery) {
+      setFilteredMovies([]);
+      return;
+    }
 
-          return (
-            movieLowerCase.includes(userQueryLowerCase) ||
-            directorLowerCase.includes(userQueryLowerCase) ||
-            genreLowerCase.includes(userQueryLowerCase)
-          );
-        });
-        setFilteredMovies(searchResult);
-      }
-    },
-    [movies, userQuery]
-  );
+    const searchResult = movies.filter((movie) => {
+      const movieLowerCase = movie.Title.toLowerCase();
+      const directorLowerCase = movie.Director.Name.toLowerCase();
+      const genreLowerCase = movie.Genre.Name.toLowerCase();
+      const userQueryLowerCase = userQuery.toLowerCase();
 
-  const removeMovie = (movieId) => {
-    console.log(`Removing movie with ID: ${movieId}`);
-  };
+      return (
+        movieLowerCase.includes(userQueryLowerCase) ||
+        directorLowerCase.includes(userQueryLowerCase) ||
+        genreLowerCase.includes(userQueryLowerCase)
+      );
+    });
+
+    setFilteredMovies(searchResult);
+  }, [movies, userQuery]);
 
   return (
     <BrowserRouter>
@@ -86,34 +74,30 @@ export const MainView = () => {
           <Route
             path="/signup"
             element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={5}>
-                    <SignupView />
-                  </Col>
-                )}
-              </>
+              user ? (
+                <Navigate to="/" />
+              ) : (
+                <Col md={5}>
+                  <SignupView />
+                </Col>
+              )
             }
           />
           <Route
             path="/login"
             element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={5}>
-                    <LoginView
-                      onLoggedIn={(user, token) => {
-                        setUser(user);
-                        setToken(token);
-                      }}
-                    />
-                  </Col>
-                )}
-              </>
+              user ? (
+                <Navigate to="/" />
+              ) : (
+                <Col md={5}>
+                  <LoginView
+                    onLoggedIn={(user, token) => {
+                      setUser(user);
+                      setToken(token);
+                    }}
+                  />
+                </Col>
+              )
             }
           />
           <Route
@@ -125,8 +109,7 @@ export const MainView = () => {
                 <Col>No movies to show</Col>
               ) : (
                 <Col md={8}>
-                  <MovieView movies={movies} user={user} setUser={setUser} />{" "}
-                  {/* ✅ */}
+                  <MovieView movies={movies} user={user} setUser={setUser} />
                 </Col>
               )
             }
@@ -145,37 +128,33 @@ export const MainView = () => {
                   </Col>
                 ) : userQuery ? (
                   <>
-                    {filteredMovies.map(function (movie) {
-                      return (
-                        <Col
-                          className="mb-4"
-                          key={movie._id}
-                          xs={6}
-                          md={4}
-                          lg={3}
-                          xl={2}
-                        >
-                          <MovieCard movie={movie} />
-                        </Col>
-                      );
-                    })}
+                    {filteredMovies.map((movie) => (
+                      <Col
+                        className="mb-4"
+                        key={movie._id}
+                        xs={6}
+                        md={4}
+                        lg={3}
+                        xl={2}
+                      >
+                        <MovieCard movie={movie} />
+                      </Col>
+                    ))}
                   </>
                 ) : (
                   <>
-                    {movies.map(function (movie) {
-                      return (
-                        <Col
-                          className="mb-4"
-                          key={movie._id}
-                          xs={6}
-                          md={4}
-                          lg={3}
-                          xl={2}
-                        >
-                          <MovieCard movie={movie} />
-                        </Col>
-                      );
-                    })}
+                    {movies.map((movie) => (
+                      <Col
+                        className="mb-4"
+                        key={movie._id}
+                        xs={6}
+                        md={4}
+                        lg={3}
+                        xl={2}
+                      >
+                        <MovieCard movie={movie} />
+                      </Col>
+                    ))}
                   </>
                 )}
               </>
@@ -187,12 +166,7 @@ export const MainView = () => {
               !user ? (
                 <Navigate to="/login" replace />
               ) : (
-                <ProfileView
-                  user={user}
-                  setUser={setUser} // ✅ new
-                  movies={movies}
-                  token={token}
-                />
+                <ProfileView user={user} setUser={setUser} movies={movies} token={token} />
               )
             }
           />

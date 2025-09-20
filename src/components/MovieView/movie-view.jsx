@@ -7,10 +7,8 @@ export const MovieView = ({ movies, user, setUser }) => {
   const movie = movies.find((m) => m._id === movieId);
   const token = localStorage.getItem("token");
 
-  // ✅ Check if current movie is already in favorites
   const isFavorite = user.FavoriteMovies.includes(movie._id);
 
-  // ✅ Add movie to favorites
   const addFavoriteMovie = () => {
     fetch(`http://localhost:8080/users/${user.Username}/movies/${movie._id}`, {
       method: "POST",
@@ -22,13 +20,12 @@ export const MovieView = ({ movies, user, setUser }) => {
       .then((response) => response.json())
       .then((updatedUser) => {
         localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser); // instantly updates UI
+        setUser(updatedUser); 
       })
       .catch((error) => console.error("Error adding favorite:", error));
   };
 
-  // ✅ Remove movie from favorites
-  const deleteFavoriteMovie = () => {
+  const removeFavoriteMovie = () => {
     fetch(`http://localhost:8080/users/${user.Username}/movies/${movie._id}`, {
       method: "DELETE",
       headers: {
@@ -39,7 +36,7 @@ export const MovieView = ({ movies, user, setUser }) => {
       .then((response) => response.json())
       .then((updatedUser) => {
         localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser); // instantly updates UI
+        setUser(updatedUser); 
       })
       .catch((error) => console.error("Error removing favorite:", error));
   };
@@ -57,9 +54,9 @@ export const MovieView = ({ movies, user, setUser }) => {
         <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
         <Card.Text>Director: {movie.Director.Name}</Card.Text>
 
-        <Link to={`/`}>
-          <Button className="back-button">Back</Button>
-        </Link>
+        <Button as={Link} to={`/`} className="back-button">
+          Back
+        </Button>
 
         {!isFavorite ? (
           <Button
@@ -67,15 +64,15 @@ export const MovieView = ({ movies, user, setUser }) => {
             variant="success"
             className="ms-2"
           >
-            Add to favorite
+            Add to favorites
           </Button>
         ) : (
           <Button
-            onClick={deleteFavoriteMovie}
+            onClick={removeFavoriteMovie}
             variant="danger"
             className="ms-2"
           >
-            Remove from favorite
+            Remove from favorites
           </Button>
         )}
       </Card.Body>

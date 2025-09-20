@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -10,15 +9,19 @@ export const MovieCard = ({ movie }) => {
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
         <Card.Text>{movie.Director.Name}</Card.Text>
-        <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-          <Button variant="link">More</Button>
-        </Link>
+        <Button
+          as={Link}
+          to={`/movies/${encodeURIComponent(movie._id)}`}
+          variant="primary"
+          size="sm"
+        >
+          More
+        </Button>
       </Card.Body>
     </Card>
   );
 };
 
-// Define prop constraints for MovieCard
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     _id: PropTypes.string.isRequired,

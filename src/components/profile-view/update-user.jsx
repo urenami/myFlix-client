@@ -12,12 +12,15 @@ export const UpdateUser = ({ user, setUser }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Build request data, only include new password if entered
     const data = {
       Username: username || user.Username,
-      Password: password || user.Password, // ⚠️ some APIs require password to be non-empty
       Email: email || user.Email,
       Birthday: birthday || user.Birthday,
     };
+    if (password) {
+      data.Password = password;
+    }
 
     try {
       const response = await fetch(
@@ -34,22 +37,20 @@ export const UpdateUser = ({ user, setUser }) => {
 
       if (!response.ok) {
         const errText = await response.text();
-        console.error("Update failed:", errText);
         alert("Update failed: " + errText);
         return;
       }
 
       const updatedUser = await response.json();
-      console.log("Updated user:", updatedUser);
 
-      // ✅ Save updated user in localStorage and state
+      // Save updated user in localStorage and React state
       localStorage.setItem("user", JSON.stringify(updatedUser));
       setUser(updatedUser);
 
       alert("Your account has been successfully updated!");
     } catch (error) {
-      console.error("Error updating user:", error);
       alert("Something went wrong. Please try again.");
+      console.error("Error updating user:", error);
     }
   };
 
@@ -59,7 +60,7 @@ export const UpdateUser = ({ user, setUser }) => {
         <Form.Label>Username</Form.Label>
         <Form.Control
           type="text"
-          placeholder={user.Username}
+          defaultValue={user.Username}
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -79,7 +80,7 @@ export const UpdateUser = ({ user, setUser }) => {
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
-          placeholder={user.Email}
+          defaultValue={user.Email}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -89,7 +90,7 @@ export const UpdateUser = ({ user, setUser }) => {
         <Form.Label>Birthday</Form.Label>
         <Form.Control
           type="date"
-          placeholder={user.Birthday.slice(0, 10)}
+          defaultValue={user.Birthday.slice(0, 10)}
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
         />
@@ -105,7 +106,6 @@ export const UpdateUser = ({ user, setUser }) => {
 UpdateUser.propTypes = {
   user: PropTypes.shape({
     Username: PropTypes.string.isRequired,
-    Password: PropTypes.string,
     Email: PropTypes.string.isRequired,
     Birthday: PropTypes.string.isRequired,
   }).isRequired,

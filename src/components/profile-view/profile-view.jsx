@@ -16,8 +16,9 @@ function ProfileView({ user, setUser, movies, token }) {
     })
       .then((response) => response.json())
       .then((updatedUser) => {
+        // Update local storage and React state
         localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser); // ✅ keep React state in sync
+        setUser(updatedUser);
       })
       .catch((err) => console.error("Error removing favorite:", err));
   };
@@ -38,7 +39,7 @@ function ProfileView({ user, setUser, movies, token }) {
         <Col>
           <Card>
             <Card.Body>
-              {/* ✅ FIX: pass setUser to UpdateUser */}
+              {/* Pass setUser so Profile updates correctly */}
               <UpdateUser user={user} setUser={setUser} />
             </Card.Body>
           </Card>
@@ -48,7 +49,7 @@ function ProfileView({ user, setUser, movies, token }) {
         <FavoriteMovies
           user={user}
           movies={movies}
-          onRemove={handleRemoveMovie} // ✅ pass down function
+          onRemove={handleRemoveMovie} // remove favorite handler
         />
       </Row>
       <Row>
@@ -70,7 +71,7 @@ ProfileView.propTypes = {
     Birthday: PropTypes.string.isRequired,
     FavoriteMovies: PropTypes.array,
   }).isRequired,
-  setUser: PropTypes.func.isRequired, // ✅ now required
+  setUser: PropTypes.func.isRequired,
   movies: PropTypes.array.isRequired,
   token: PropTypes.string.isRequired,
 };
