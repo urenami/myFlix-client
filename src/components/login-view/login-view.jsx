@@ -1,13 +1,13 @@
+import "./login-view.scss";
 import { useState } from "react";
-//import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = (event) => {
-    //this prevents the default behaviour of the form which is to reload the entire page
     event.preventDefault();
 
     const data = {
@@ -22,22 +22,22 @@ export const LoginView = ({ onLoggedIn }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Login response: ", data);
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
         } else {
-          alert("No such user");
+          alert("Invalid username or password. Please try again.");
         }
       })
-      .catch((e) => {
-        alert("Something went worng. Please try again.");
+      .catch(() => {
+        alert("Something went wrong. Please try again later.");
       });
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className="login-form" onSubmit={handleSubmit}>
+      <h2>Login</h2>
       <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control
@@ -60,7 +60,7 @@ export const LoginView = ({ onLoggedIn }) => {
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Submit
+        Login
       </Button>
     </Form>
   );

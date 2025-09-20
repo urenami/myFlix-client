@@ -1,0 +1,75 @@
+.login-form {
+  max-width: 400px;
+  margin: 100px auto; // centers it with top spacing
+  padding: 30px;
+  background: #fff; // white box so text is visible
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #222;
+    font-weight: 600;
+  }
+
+  label {
+    color: #333;
+    font-weight: 500;
+  }
+
+  input {
+    background-color: #fff;
+    color: #000 !important; // keep typed text black
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+
+    &::placeholder {
+      color: #777; // placeholder gray so it’s distinguishable
+    }
+  }
+
+  input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 4px rgba(0, 86, 179, 0.4);
+    outline: none;
+    background-color: #fff;
+    color: #000 !important; // keep text black when focused
+  }
+
+  button {
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 6px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px;
+
+    &:hover {
+      background-color: #0056b3; // smoother hover
+    }
+  }
+
+  .login-card {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff;
+  }
+
+  .login-card h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #000;
+  }
+
+  .login-card button {
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+}
