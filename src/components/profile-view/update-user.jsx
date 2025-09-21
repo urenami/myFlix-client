@@ -4,19 +4,18 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 export const UpdateUser = ({ user, setUser }) => {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [email, setEmail] = useState(user.Email);
+  const [birthday, setBirthday] = useState(user.Birthday.slice(0, 10));
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Build request data, only include new password if entered
     const data = {
-      Username: username || user.Username,
-      Email: email || user.Email,
-      Birthday: birthday || user.Birthday,
+      Username: username,
+      Email: email,
+      Birthday: birthday,
     };
     if (password) {
       data.Password = password;
@@ -42,8 +41,6 @@ export const UpdateUser = ({ user, setUser }) => {
       }
 
       const updatedUser = await response.json();
-
-      // Save updated user in localStorage and React state
       localStorage.setItem("user", JSON.stringify(updatedUser));
       setUser(updatedUser);
 
@@ -55,12 +52,11 @@ export const UpdateUser = ({ user, setUser }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="update-user-form">
       <Form.Group controlId="formUsername" className="mb-3">
         <Form.Label>Username</Form.Label>
         <Form.Control
           type="text"
-          defaultValue={user.Username}
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -80,7 +76,6 @@ export const UpdateUser = ({ user, setUser }) => {
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
-          defaultValue={user.Email}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -90,13 +85,12 @@ export const UpdateUser = ({ user, setUser }) => {
         <Form.Label>Birthday</Form.Label>
         <Form.Control
           type="date"
-          defaultValue={user.Birthday.slice(0, 10)}
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className="save-button">
         Save changes
       </Button>
     </Form>
