@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
-import { Row, Col, Container, Card, Button } from "react-bootstrap";
+import { Row, Col, Container, Card } from "react-bootstrap";
 import { UpdateUser } from "./update-user";
 import { FavoriteMovies } from "./favorite-movies";
-import { Link } from "react-router-dom";
 import "./profile-view.scss";
 
 function ProfileView({ user, setUser, movies, token }) {
@@ -16,7 +15,6 @@ function ProfileView({ user, setUser, movies, token }) {
     })
       .then((response) => response.json())
       .then((updatedUser) => {
-        // Update local storage and React state
         localStorage.setItem("user", JSON.stringify(updatedUser));
         setUser(updatedUser);
       })
@@ -24,40 +22,46 @@ function ProfileView({ user, setUser, movies, token }) {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Card>
+    <Container className="profile-view">
+      {/* Top row: User Info + Update Profile */}
+      <Row className="mb-4 justify-content-center">
+        <Col md={5}>
+          <Card className="profile-card">
             <Card.Body>
-              <h4>User Information</h4>
+              <h4 className="section-title">User Information</h4>
               <p>Username: {user.Username}</p>
               <p>Birthday: {user.Birthday.slice(0, 10)}</p>
               <p>Email: {user.Email}</p>
             </Card.Body>
           </Card>
         </Col>
-        <Col>
-          <Card>
+
+        <Col md={5}>
+          <Card className="profile-card">
             <Card.Body>
-              {/* Pass setUser so Profile updates correctly */}
+              <h4 className="section-title">Update Profile</h4>
               <UpdateUser user={user} setUser={setUser} />
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <Row>
-        <FavoriteMovies
-          user={user}
-          movies={movies}
-          onRemove={handleRemoveMovie} // remove favorite handler
-        />
-      </Row>
-      <Row>
-        <div>
-          <Button className="back-button" as={Link} to={"/"}>
-            Back
-          </Button>
-        </div>
+
+      {/* Bottom row: Favorite Movies */}
+      <Row className="mb-4">
+        <Col>
+          <Card className="profile-card">
+            <Card.Body>
+              <h4 className="section-title">Favorite Movies</h4>
+              <div className="favorite-movies">
+                <FavoriteMovies
+                  user={user}
+                  movies={movies}
+                  onRemove={handleRemoveMovie}
+                />
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );
