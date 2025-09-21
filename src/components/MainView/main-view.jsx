@@ -10,7 +10,7 @@ import { Col, Row } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./main-view.scss";
 
-const API_URL = process.env.API_URL || "http://localhost:8080";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -25,7 +25,7 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
 
-    fetch('${API_URL}/movie', {
+    fetch("${process.env.REACT_APP_API_URL}/movie", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })

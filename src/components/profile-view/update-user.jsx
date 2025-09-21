@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const API_URL = process.env.API_URL || "http://localhost:8080";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 export const UpdateUser = ({ user, setUser }) => {
   const [username, setUsername] = useState(user.Username);
@@ -24,17 +24,14 @@ export const UpdateUser = ({ user, setUser }) => {
     }
 
     try {
-      const response = await fetch(
-        `${API_URL}/users/${user.Username}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${user.Username}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
         const errText = await response.text();

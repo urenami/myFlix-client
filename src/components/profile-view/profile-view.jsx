@@ -4,17 +4,20 @@ import { UpdateUser } from "./update-user";
 import { FavoriteMovies } from "./favorite-movies";
 import "./profile-view.scss";
 
-const API_URL = process.env.API_URL || "http://localhost:8080";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 function ProfileView({ user, setUser, movies, token }) {
   const handleRemoveMovie = (movieId) => {
-    fetch(`${API_URL}/users/${user.Username}/movies/${movieId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `${process.env.REACT_APP_API_URL}/users/${user.Username}/movies/${movieId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((updatedUser) => {
         localStorage.setItem("user", JSON.stringify(updatedUser));
