@@ -17,13 +17,12 @@ function FavoriteMovies({ movies, user, onRemove }) {
       <h4 className="mt-4">Favorite Movies</h4>
       {favoriteMovies.map((movie) => (
         <Col key={movie._id} xs={6} sm={4} md={3} lg={3} className="mb-4">
-          <Card>
+          <Card className="favorite-movie-card">
             <Card.Img variant="top" src={movie.imageUrl} alt={movie.Title} />
-            <Card.Body>
-              <Card.Title>{movie.Title}</Card.Title>
+            <Card.Body className="text-center">
               <Button
                 variant="danger"
-                onClick={() => onRemove(movie._id)} 
+                onClick={() => onRemove(movie._id)}
               >
                 Remove
               </Button>
