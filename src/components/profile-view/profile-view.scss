@@ -1,22 +1,120 @@
-/* Style for the "Back" button */
+.profile-view {
+  margin-top: 20px;
+}
+
+/* Dark themed profile card */
+.profile-card {
+  background-color: #1e1e1e !important;  /* force dark */
+  color: #f4f4f9 !important;
+  border-radius: 8px;
+  padding: 16px;
+  border: none !important;              /* remove bootstrap border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Section headers */
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #ffffff !important;
+  border-bottom: 1px solid #444;
+  padding-bottom: 5px;
+}
+
+/* Update Profile form */
+.update-user-form .form-control {
+  background-color: #2a2a2a !important;
+  color: #f4f4f9 !important;
+  border: 1px solid #444 !important;
+}
+
+.update-user-form .form-control::placeholder {
+  color: #aaa !important;
+}
+
+.update-user-form .form-control:focus {
+  background-color: #333 !important;
+  color: #fff !important;
+  border-color: dodgerblue !important;
+  box-shadow: 0 0 0 0.2rem rgba(30, 125, 217, 0.25) !important;
+}
+
+/* Favorite Movies container */
+.favorite-movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.favorite-movies::-webkit-scrollbar {
+  width: 6px;
+}
+.favorite-movies::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+.favorite-movies::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Favorite movie cards */
+.favorite-movie-card {
+  background-color: #2a2a2a;
+  color: #f4f4f9 !important;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  width: 140px;
+}
+
+.favorite-movie-card .card-title,
+.favorite-movie-card p {
+  color: #ffffff !important;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Poster */
+.favorite-movie-card img {
+  border-radius: 6px;
+  margin-bottom: 8px;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Update Profile form */
+.update-user-form .form-control {
+  background-color: #2a2a2a;
+  color: #f4f4f9 !important;
+  border: 1px solid #444;
+}
+
+.update-user-form .form-control::placeholder {
+  color: #aaa;
+}
+
+.update-user-form .form-control:focus {
+  background-color: #333;
+  color: #fff !important;
+  border-color: dodgerblue;
+  box-shadow: 0 0 0 0.2rem rgba(30, 125, 217, 0.25);
+}
+
+/* Back button */
 .back-button {
-  padding: 4px 12px 4px 12px;
-  color: whitesmoke;
+  padding: 6px 16px;
+  color: #fff;
   background-color: dodgerblue;
   border: none;
   border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
-/* Style for movie images */
-.movie-image {
-  width: 150px; 
-  height: 225px; 
-  object-fit: cover;
-  display: block; 
-  margin-bottom: 16px;
+.back-button:hover {
+  background-color: #1e7dd9;
 }
-
-
-
-
-
