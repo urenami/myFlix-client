@@ -50,7 +50,7 @@ function SearchBar({ onSearch, fullWidth = false }) {
 
 SearchBar.propTypes = {
   onSearch: PropTypes.func.isRequired,
-  fullWidth: PropTypes.bool, // ✅ lets you toggle layouts
+  fullWidth: PropTypes.bool, 
 };
 
 export { SearchBar };

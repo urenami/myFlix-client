@@ -3,14 +3,14 @@
 
   input {
     flex: 1;
-    background-color: #ffffff !important;  /* force white background */
-    color: #000000 !important;             /* force black text */
+    background-color: #ffffff !important;  
+    color: #000000 !important;             
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 0.5rem;
 
     &::placeholder {
-      color: #666666; /* softer grey placeholder */
+      color: #666666; 
     }
 
     &:focus {
