@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
 import "./movie-view.scss";
 
+const API_URL = process.env.API_URL || "http://localhost:8080";
+
 export const MovieView = ({ movies, user, setUser }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m._id === movieId);
@@ -11,7 +13,7 @@ export const MovieView = ({ movies, user, setUser }) => {
 
   // Unified function for adding/removing favorites
   const updateFavorites = (method) => {
-    fetch(`http://localhost:8080/users/${user.Username}/movies/${movie._id}`, {
+    fetch(`${API_URL}/users/${user.Username}/movies/${movie._id}`, {
       method,
       headers: {
         Authorization: `Bearer ${token}`,

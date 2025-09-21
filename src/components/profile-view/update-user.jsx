@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+const API_URL = process.env.API_URL || "http://localhost:8080";
+
 export const UpdateUser = ({ user, setUser }) => {
   const [username, setUsername] = useState(user.Username);
   const [password, setPassword] = useState("");
@@ -23,7 +25,7 @@ export const UpdateUser = ({ user, setUser }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/users/${user.Username}`,
+        `${API_URL}/users/${user.Username}`,
         {
           method: "PUT",
           headers: {

@@ -3,6 +3,8 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
+const API_URL = process.env.API_URL || "http://localhost:8080";
+
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -10,12 +12,9 @@ export const LoginView = ({ onLoggedIn }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const data = {
-      Username: username,
-      Password: password,
-    };
+    const data = { Username: username, Password: password };
 
-    fetch("http://localhost:8080/login", {
+    fetch(`${API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

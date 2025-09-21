@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./signup-view.scss";
 
+const API_URL = process.env.API_URL || "http://localhost:8080";
+
 export const SignupView = ({ onSignedUp }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,7 @@ export const SignupView = ({ onSignedUp }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/users", {
+      const response = await fetch("${API_URL}/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
