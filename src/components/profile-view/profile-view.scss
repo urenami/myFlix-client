@@ -4,11 +4,11 @@
 
 /* Dark themed profile card */
 .profile-card {
-  background-color: #1e1e1e !important;  /* force dark */
+  background-color: #1e1e1e !important;  
   color: #f4f4f9 !important;
   border-radius: 8px;
   padding: 16px;
-  border: none !important;              /* remove bootstrap border */
+  border: none !important;              
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -44,7 +44,7 @@
 .favorite-movies {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 30px;
   justify-content: flex-start;
   max-height: 400px;
   overflow-y: auto;

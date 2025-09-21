@@ -41,6 +41,7 @@ export const UpdateUser = ({ user, setUser }) => {
       }
 
       const updatedUser = await response.json();
+
       localStorage.setItem("user", JSON.stringify(updatedUser));
       setUser(updatedUser);
 
@@ -57,6 +58,7 @@ export const UpdateUser = ({ user, setUser }) => {
         <Form.Label>Username</Form.Label>
         <Form.Control
           type="text"
+          placeholder="Enter username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -76,6 +78,7 @@ export const UpdateUser = ({ user, setUser }) => {
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
+          placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -84,13 +87,14 @@ export const UpdateUser = ({ user, setUser }) => {
       <Form.Group controlId="formBirthday" className="mb-3">
         <Form.Label>Birthday</Form.Label>
         <Form.Control
-          type="date"
+          type="text"
+          placeholder="YYYY-MM-DD"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit" className="save-button">
+      <Button variant="primary" type="submit">
         Save changes
       </Button>
     </Form>
