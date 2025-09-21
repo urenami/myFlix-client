@@ -23,7 +23,7 @@ export const SignupView = ({ onSignedUp }) => {
     };
 
     try {
-      const response = await fetch('${process.env.REACT_APP_API_URL}/users', {
+      const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

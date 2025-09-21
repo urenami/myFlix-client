@@ -13,7 +13,7 @@ export const MovieView = ({ movies, user, setUser }) => {
 
   // Unified function for adding/removing favorites
   const updateFavorites = (method) => {
-    fetch(`${process.env.REACT_APP_API_URL}/users/${user.Username}/movies/${movie._id}`, {
+    fetch(`${API_URL}/users/${user.Username}/movies/${movie._id}`, {
       method,
       headers: {
         Authorization: `Bearer ${token}`,

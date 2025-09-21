@@ -24,7 +24,7 @@ export const UpdateUser = ({ user, setUser }) => {
     }
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${user.Username}`, {
+      const response = await fetch(`${API_URL}/users/${user.Username}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

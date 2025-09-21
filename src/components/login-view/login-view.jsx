@@ -14,7 +14,7 @@ export const LoginView = ({ onLoggedIn }) => {
 
     const data = { Username: username, Password: password };
 
-    fetch(`${process.env.REACT_APP_API_URL}/login`, {
+    fetch(`${API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

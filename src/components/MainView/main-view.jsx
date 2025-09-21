@@ -25,7 +25,7 @@ export const MainView = () => {
   useEffect(() => {
     if (!token) return;
 
-    fetch("${process.env.REACT_APP_API_URL}/movie", {
+    fetch(`${API_URL}/movies`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })
