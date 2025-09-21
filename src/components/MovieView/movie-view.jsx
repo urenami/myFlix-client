@@ -9,7 +9,7 @@ export const MovieView = ({ movies, user, setUser }) => {
 
   const isFavorite = user.FavoriteMovies.includes(movie._id);
 
-  // ✅ Unified function for adding/removing favorites
+  // Unified function for adding/removing favorites
   const updateFavorites = (method) => {
     fetch(`http://localhost:8080/users/${user.Username}/movies/${movie._id}`, {
       method,

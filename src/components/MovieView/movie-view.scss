@@ -1,6 +1,6 @@
 /* Page background */
 body {
-  background-color: #f4f4f9; /* light gray */
+  background-color: #f4f4f9; 
   margin: 0;
   font-family: Arial, sans-serif;
 }
@@ -10,8 +10,8 @@ body {
   max-width: 900px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #1e1e1e !important;  /* dark background */
-  color: #f4f4f9 !important;             /* light text */
+  background-color: #1e1e1e !important;  
+  color: #f4f4f9 !important;             
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
   text-align: left;
@@ -51,7 +51,7 @@ body {
   margin: 8px 0;
   font-size: 1rem;
   line-height: 1.5;
-  color: #ddd !important; /* softer gray text */
+  color: #ddd !important; 
 }
 
 /* Buttons */
@@ -69,13 +69,13 @@ body {
 }
 
 .movie-view .btn-success {
-  background-color: #28a745 !important; /* green */
+  background-color: #28a745 !important; 
   border: none !important;
   color: #fff !important;
 }
 
 .movie-view .btn-danger {
-  background-color: #dc3545 !important; /* red */
+  background-color: #dc3545 !important; 
   border: none !important;
   color: #fff !important;
 }
