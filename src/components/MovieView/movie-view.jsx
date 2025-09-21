@@ -20,7 +20,7 @@ export const MovieView = ({ movies, user, setUser }) => {
       .then((response) => response.json())
       .then((updatedUser) => {
         localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser); 
+        setUser(updatedUser);
       })
       .catch((error) => console.error("Error adding favorite:", error));
   };
@@ -36,45 +36,53 @@ export const MovieView = ({ movies, user, setUser }) => {
       .then((response) => response.json())
       .then((updatedUser) => {
         localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser); 
+        setUser(updatedUser);
       })
       .catch((error) => console.error("Error removing favorite:", error));
   };
 
   return (
-    <Card>
+    <Card className="movie-view">
       <Card.Img
         className="h-50"
         src={movie.imageUrl}
         alt={`Poster of ${movie.Title}`}
       />
       <Card.Body>
-        <Card.Title>{movie.Title}</Card.Title>
-        <Card.Text>Description: {movie.Description}</Card.Text>
-        <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
-        <Card.Text>Director: {movie.Director.Name}</Card.Text>
+        <Card.Title className="mb-3">{movie.Title}</Card.Title>
+        <Card.Text>
+          <strong>Description:</strong> {movie.Description}
+        </Card.Text>
+        <Card.Text>
+          <strong>Genre:</strong> {movie.Genre.Name}
+        </Card.Text>
+        <Card.Text>
+          <strong>Director:</strong> {movie.Director.Name}
+        </Card.Text>
 
-        <Button as={Link} to={`/`} className="back-button">
-          Back
-        </Button>
+        <div className="d-flex flex-wrap mt-3">
+          <Button as={Link} to={`/`} className="back-button">
+            Back
+          </Button>
 
-        {!isFavorite ? (
-          <Button
-            onClick={addFavoriteMovie}
-            variant="success"
-            className="ms-2"
-          >
-            Add to favorites
-          </Button>
-        ) : (
-          <Button
-            onClick={removeFavoriteMovie}
-            variant="danger"
-            className="ms-2"
-          >
-            Remove from favorites
-          </Button>
-        )}
+          {!isFavorite ? (
+            <Button
+              onClick={() => updateFavorites("POST")}
+              variant="success"
+              className="ms-2"
+            >
+              Add to favorites
+            </Button>
+          ) : (
+            <Button
+              onClick={() => updateFavorites("DELETE")}
+              variant="danger"
+              className="ms-2"
+            >
+              Remove from favorites
+            </Button>
+          )}
+        </div>
       </Card.Body>
     </Card>
   );

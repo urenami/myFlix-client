@@ -1,38 +1,111 @@
-.back-button {
-  padding: 4px 12px 4px 12px;
-  color: whitesmoke;
-  background-color: dodgerblue;
-  border: none;
-  border-radius: 4px;
+/* Page background */
+body {
+  background-color: #f4f4f9; /* light gray */
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
+
+/* Movie card container (dark style) */
 .movie-view {
   max-width: 900px;
-  margin: 30px auto;
+  margin: 40px auto;
   padding: 20px;
-  background: #fff;
+  background-color: #1e1e1e !important;  /* dark background */
+  color: #f4f4f9 !important;             /* light text */
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-  img {
-    width: 100%;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
+.movie-view:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.6);
+}
 
-  .card-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
+/* Ensure card body also turns dark */
+.movie-view .card-body {
+  background-color: #1e1e1e !important;
+  color: #f4f4f9 !important;
+}
 
-  .card-text {
-    margin: 10px 0;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
+/* Poster image */
+.movie-view img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
 
-  button {
-    margin: 5px;
-  }
+/* Title and text */
+.movie-view .card-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #fff !important;
+}
+
+.movie-view .card-text {
+  margin: 8px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ddd !important; /* softer gray text */
+}
+
+/* Buttons */
+.back-button {
+  background-color: #444 !important;
+  border: none !important;
+  color: #fff !important;
+  padding: 6px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #222 !important;
+}
+
+.movie-view .btn-success {
+  background-color: #28a745 !important; /* green */
+  border: none !important;
+  color: #fff !important;
+}
+
+.movie-view .btn-danger {
+  background-color: #dc3545 !important; /* red */
+  border: none !important;
+  color: #fff !important;
+}
+
+.movie-view .btn {
+  min-width: 130px;
+  margin: 5px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #222 !important;
+}
+
+.navbar-nav .nav-link {
+  color: #333 !important;
+  margin: 0 10px;
+  font-weight: 500;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: dodgerblue !important;
+  border-bottom: 2px solid dodgerblue;
 }
