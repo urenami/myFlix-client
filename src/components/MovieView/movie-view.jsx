@@ -9,9 +9,10 @@ export const MovieView = ({ movies, user, setUser }) => {
 
   const isFavorite = user.FavoriteMovies.includes(movie._id);
 
-  const addFavoriteMovie = () => {
+  // ✅ Unified function for adding/removing favorites
+  const updateFavorites = (method) => {
     fetch(`http://localhost:8080/users/${user.Username}/movies/${movie._id}`, {
-      method: "POST",
+      method,
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -22,23 +23,9 @@ export const MovieView = ({ movies, user, setUser }) => {
         localStorage.setItem("user", JSON.stringify(updatedUser));
         setUser(updatedUser);
       })
-      .catch((error) => console.error("Error adding favorite:", error));
-  };
-
-  const removeFavoriteMovie = () => {
-    fetch(`http://localhost:8080/users/${user.Username}/movies/${movie._id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((updatedUser) => {
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser);
-      })
-      .catch((error) => console.error("Error removing favorite:", error));
+      .catch((error) =>
+        console.error("Error updating favorite movies:", error)
+      );
   };
 
   return (
