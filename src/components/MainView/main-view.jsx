@@ -10,6 +10,7 @@ import { Col, Row } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./main-view.scss";
 
+console.log("API URL is:", process.env.REACT_APP_API_URL);
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 export const MainView = () => {
